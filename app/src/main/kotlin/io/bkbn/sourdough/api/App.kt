@@ -1,4 +1,4 @@
-package io.bkbn.sourdough.app
+package io.bkbn.sourdough.api
 
 import io.bkbn.sourdough.lib.SourdoughLibrary
 
