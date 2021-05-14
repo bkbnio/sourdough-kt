@@ -29,9 +29,6 @@ allprojects {
   }
 
   repositories {
-    github("https://maven.pkg.github.com/bkbnio/skelegro")
-    github("https://maven.pkg.github.com/bkbnio/kompendium")
-    github("https://maven.pkg.github.com/bkbnio/poetik")
     mavenCentral()
     mavenLocal()
   }
@@ -81,31 +78,4 @@ allprojects {
   configure<JavaPluginExtension> {
     withSourcesJar()
   }
-}
-
-fun RepositoryHandler.github(packageUrl: String) = maven {
-  name = "GithubPackages"
-  url = uri(packageUrl)
-  credentials {
-    username = System.getenv("BKBN__GITHUB_USER")
-    password = System.getenv("BKBN__GITHUB_TOKEN")
-  }
-}
-
-tasks.register("getProjectVersion") {
-  doLast {
-    println(project.findProperty("version"))
-  }
-}
-
-tasks.register<Exec>("lintCortexInfra") {
-  commandLine("terraform", "fmt", "-check", "infrastructure")
-}
-
-tasks.register<Exec>("lintGeneratorInfra") {
-  commandLine("terraform", "fmt", "-check", "generator/infrastructure")
-}
-
-tasks.register<Exec>("lintWebInfra") {
-  commandLine("terraform", "fmt", "-check", "web/infrastructure")
 }

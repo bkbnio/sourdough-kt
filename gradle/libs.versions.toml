@@ -2,6 +2,7 @@
 kotlin = "1.5.0"
 slf4j = "1.7.30"
 logback = "1.2.3"
+ktor = "1.5.3"
 junit = "5.6.2"
 mockk = "1.10.0"
 detekt = "1.17.0-RC3"
@@ -11,6 +12,10 @@ detekt = "1.17.0-RC3"
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 logback-core = { group = "ch.qos.logback", name = "logback-core", version.ref = "logback" }
+
+# API
+ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
 
 # Linter
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
@@ -22,4 +27,8 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [bundles]
 logging = ["slf4j", "logback-classic", "logback-core"]
+api = [
+  "ktor-server-core",
+  "ktor-server-netty",
+]
 test = ["junit-api", "mockk", "junit-engine"]
