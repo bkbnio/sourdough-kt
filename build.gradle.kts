@@ -5,6 +5,7 @@ import com.adarshr.gradle.testlogger.theme.ThemeType
 
 plugins {
   id("org.jetbrains.kotlin.jvm") version "1.5.0" apply false
+  id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0" apply false
   id("io.gitlab.arturbosch.detekt") version "1.17.0-RC2" apply false
   id("com.adarshr.test-logger") version "3.0.0" apply false
   id("com.github.jakemarsden.git-hooks") version "0.0.2" apply true
@@ -34,6 +35,7 @@ allprojects {
   }
 
   apply(plugin = "org.jetbrains.kotlin.jvm")
+  apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
   apply(plugin = "io.gitlab.arturbosch.detekt")
   apply(plugin = "com.adarshr.test-logger")
   apply(plugin = "java-library")
@@ -65,7 +67,7 @@ allprojects {
 
   tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
-      jvmTarget = "14"
+      jvmTarget = "11"
     }
   }
 
@@ -77,5 +79,18 @@ allprojects {
 
   configure<JavaPluginExtension> {
     withSourcesJar()
+  }
+
+  configure<PublishingExtension> {
+    repositories {
+      maven {
+        name = "GithubPackages"
+        url = uri("https://maven.pkg.github.com/bkbnio/fixme")
+        credentials {
+          username = System.getenv("GITHUB_ACTOR")
+          password = System.getenv("GITHUB_TOKEN")
+        }
+      }
+    }
   }
 }

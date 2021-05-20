@@ -1,12 +1,12 @@
 package io.bkbn.sourdough.lib
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
 
-internal class SourdoughLibraryTest {
-
-  @Test
-  fun `Does the thing`() {
-    assertEquals("heyheyhey", SourdoughLibrary.coolFeature(3))
+class SourdoughLibraryTest : DescribeSpec({
+  describe("Sample Test") {
+    it("prints a bunch of heys") {
+      SourdoughLibrary.coolFeature(3) shouldBe "heyheyhey"
+    }
   }
-}
+})
