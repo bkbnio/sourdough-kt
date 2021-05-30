@@ -8,7 +8,7 @@ kotlinx-serialization = "1.2.1"
 kotlinx-datetime = "0.2.0"
 kotest = "4.4.3"
 mockk = "1.10.0"
-detekt = "1.17.0-RC3"
+detekt = "1.17.1"
 
 [libraries]
 # Kotlin

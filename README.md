@@ -5,9 +5,11 @@ will be compiled as individual modules, that users can pick and choose from when
  
 Out of the box, sourdough-kt comes with some really nice tooling 
 
-- Static Analysis
+- Static Analysis using Detekt
 - Improved test logging
 - Automated git hooks
+- Code coverage with aggregated report via Jacoco plugin
+- Preconfigured library publishing to GitHub and Maven Central
 - Automated Docker Packaging (TODO)
 
 Currently, there are several example modules included.  These
@@ -18,3 +20,5 @@ can be added to or removed via the `settings.gradle.kts` file.
 - Lib: An example library that is imported into both the app and api
 
 Sourdough takes advantage of several new Gradle 7 features.  Dependencies are 
+managed via the `gradle/libs.version.toml` file.  Type safe library and project accessors 
+are enabled.  
