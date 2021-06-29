@@ -105,7 +105,7 @@ subprojects {
       }
     }
     publications {
-      create<MavenPublication>("kovert") {
+      create<MavenPublication>("changeme") {
         groupId = project.group.toString()
         artifactId = project.name.toLowerCase()
         version = project.version.toString()
