@@ -2,6 +2,7 @@ import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.adarshr.gradle.testlogger.TestLoggerExtension
 import com.adarshr.gradle.testlogger.theme.ThemeType
+import org.unbrokendome.gradle.plugins.testsets.dsl.TestSetContainer
 
 plugins {
   id("org.jetbrains.kotlin.jvm") version "1.5.0" apply false
@@ -10,6 +11,7 @@ plugins {
   id("com.adarshr.test-logger") version "3.0.0" apply false
   id("com.github.jakemarsden.git-hooks") version "0.0.2" apply true
   id("io.github.gradle-nexus.publish-plugin") version "1.1.0" apply true
+  id("org.unbroken-dome.test-sets") version "4.0.0" apply true
 }
 
 gitHooks {
@@ -39,11 +41,16 @@ subprojects {
   apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
   apply(plugin = "io.gitlab.arturbosch.detekt")
   apply(plugin = "com.adarshr.test-logger")
+  apply(plugin = "org.unbroken-dome.test-sets")
   apply(plugin = "jacoco")
   apply(plugin = "java-library")
   apply(plugin = "java-test-fixtures")
   apply(plugin = "maven-publish")
   apply(plugin = "idea")
+
+  configure<TestSetContainer> {
+    create("testIntegration")
+  }
 
   tasks.withType<Test>() {
     useJUnitPlatform()
