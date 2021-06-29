@@ -20,7 +20,7 @@ gitHooks {
 }
 
 subprojects {
-  group = "io.bkbn"
+  group = "changeme"
   version = run {
     val baseVersion =
       project.findProperty("project.version") ?: error("project.version must be set in gradle.properties")
@@ -90,14 +90,46 @@ subprojects {
     repositories {
       maven {
         name = "GithubPackages"
-        url = uri("https://maven.pkg.github.com/bkbnio/fixme")
+        url = uri("https://maven.pkg.github.com/changeme/changeme")
         credentials {
           username = System.getenv("GITHUB_ACTOR")
           password = System.getenv("GITHUB_TOKEN")
         }
       }
     }
+    publications {
+      create<MavenPublication>("kovert") {
+        groupId = project.group.toString()
+        artifactId = project.name.toLowerCase()
+        version = project.version.toString()
+
+        pom {
+          name.set("changeme")
+          description.set("changeme")
+          url.set("https://github.com/changeme/changeme")
+          licenses {
+            license {
+              name.set("MIT License")
+              url.set("https://mit-license.org/")
+            }
+          }
+          developers {
+            developer {
+              id.set("changeme")
+              name.set("changeme")
+              email.set("changeme")
+            }
+          }
+          scm {
+            connection.set("scm:git:git://github.com/changeme/changeme.git")
+            developerConnection.set("scm:git:ssh://github.com/changeme/changeme.git")
+            url.set("https://github.com/changeme/changeme.git")
+          }
+        }
+      }
+    }
   }
+
   configure<JacocoPluginExtension> {
     toolVersion = "0.8.7"
   }
@@ -109,23 +141,5 @@ nexusPublishing {
       nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
       snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
     }
-  }
-}
-
-tasks.register<JacocoReport>("jacocoRootReport") {
-  subprojects {
-    this@subprojects.plugins.withType<JacocoPlugin>().configureEach {
-      this@subprojects.tasks.matching {
-        it.extensions.findByType<JacocoTaskExtension>() != null }
-        .configureEach {
-          sourceSets(this@subprojects.the<SourceSetContainer>().named("main").get())
-          executionData(this)
-        }
-    }
-  }
-
-  reports {
-    xml.isEnabled = true
-    html.isEnabled = true
   }
 }
