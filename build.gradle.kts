@@ -41,6 +41,7 @@ allprojects {
   apply(plugin = "com.adarshr.test-logger")
   apply(plugin = "jacoco")
   apply(plugin = "java-library")
+  apply(plugin = "java-test-fixtures")
   apply(plugin = "maven-publish")
   apply(plugin = "idea")
 
