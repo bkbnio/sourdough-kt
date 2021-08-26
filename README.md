@@ -19,5 +19,12 @@ can be added to or removed via the `settings.gradle.kts` file.
 - App: Simple Hello World Kotlin Application
 - Api: Bare-bones Ktor application
 - Lib: An example library that is imported into both the app and api
+- Cli: An example of how to integrate a pure kotlin CLI into your projects
 
-Sourdough takes advantage of several new Gradle 7 features.  Dependencies can be found in the `gradle/libs.version.toml` file.  Type safe library and project accessors are on by default.  
+Sourdough takes advantage of several new Gradle 7 features.  
+Dependencies can be found in the `gradle/libs.version.toml` file.  
+Type safe library and project accessors are on by default.  
+
+The CLI can be run directly from the console via a super simple helper script
+
+`./sourdough-cli.sh -h`
