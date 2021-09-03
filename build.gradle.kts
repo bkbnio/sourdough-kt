@@ -140,6 +140,13 @@ subprojects {
   configure<JacocoPluginExtension> {
     toolVersion = "0.8.7"
   }
+  
+  java {
+    toolchain {
+      languageVersion.set(JavaLanguageVersion.of(11))
+      vendor.set(JvmVendorSpec.ADOPTOPENJDK)
+    }
+  }
 }
 
 nexusPublishing {
