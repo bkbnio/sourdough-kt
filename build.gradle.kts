@@ -3,20 +3,24 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.adarshr.gradle.testlogger.TestLoggerExtension
 import com.adarshr.gradle.testlogger.theme.ThemeType
 
+// Tracking -> https://youtrack.jetbrains.com/issue/KTIJ-19369
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-  id("org.jetbrains.kotlin.jvm") version "1.5.0" apply false
-  id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0" apply false
-  id("io.gitlab.arturbosch.detekt") version "1.17.1" apply false
-  id("com.adarshr.test-logger") version "3.0.0" apply false
-  id("com.github.jakemarsden.git-hooks") version "0.0.2" apply true
-  id("io.github.gradle-nexus.publish-plugin") version "1.1.0" apply true
+  alias(build.plugins.kotlin) apply false
+  alias(build.plugins.serialization) apply false
+  alias(build.plugins.detekt) apply false
+  alias(build.plugins.test.logger) apply false
+  alias(build.plugins.git.hooks) apply true
+  alias(build.plugins.nexus.publish) apply true
 }
 
 gitHooks {
-  setHooks(mapOf(
-    "pre-commit" to "detekt",
-    "pre-push" to "test"
-  ))
+  setHooks(
+    mapOf(
+      "pre-commit" to "detekt",
+      "pre-push" to "test"
+    )
+  )
 }
 
 subprojects {
@@ -49,17 +53,6 @@ subprojects {
     finalizedBy(tasks.withType(JacocoReport::class))
   }
 
-  configure<TestingExtension> {
-    suites {
-      named<JvmTestSuite>("test") {
-        useJUnitJupiter()
-      }
-      create<JvmTestSuite>("testIntegration") {
-        useJUnitJupiter()
-      }
-    }
-  }
-
   configure<TestLoggerExtension> {
     theme = ThemeType.MOCHA
     logLevel = LogLevel.LIFECYCLE
@@ -86,7 +79,7 @@ subprojects {
   }
 
   configure<DetektExtension> {
-    toolVersion = "1.17.1"
+    toolVersion = project.findProperty("detektVersion").toString()
     config = files("${rootProject.projectDir}/detekt.yml")
     buildUponDefaultConfig = true
   }
@@ -141,7 +134,7 @@ subprojects {
   }
 
   configure<JacocoPluginExtension> {
-    toolVersion = "0.8.7"
+    toolVersion = project.findProperty("jacocoVersion").toString()
   }
 
   configure<JavaPluginExtension> {
