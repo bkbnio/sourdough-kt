@@ -8,7 +8,7 @@ Out of the box, sourdough-kt comes with some really nice tooling
 - Static Analysis using Detekt
 - Improved test logging
 - Automated git hooks
-- Easy test separation using the test set plugin  
+- Easy test separation the Gradle 7 testing suite builder
 - Code coverage via Jacoco
 - Preconfigured library publishing to GitHub and Maven Central
 - Automated Docker Packaging (TODO)

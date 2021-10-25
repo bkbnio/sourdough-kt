@@ -4,12 +4,30 @@ plugins {
 
 dependencies {
   implementation(projects.lib)
-  implementation(libs.bundles.logging)
-  implementation(libs.bundles.api)
-  testImplementation(libs.bundles.test)
-  detektPlugins(libs.detekt.formatting)
+  implementation(logs.bundles.default)
+  implementation(ktor.bundles.server)
+  detektPlugins(misc.detekt.formatting)
 }
 
 application {
   mainClass.set("io.bkbn.sourdough.api.ApiKt")
+}
+
+testing {
+  suites {
+    named<JvmTestSuite>("test") {
+      useJUnitJupiter()
+
+      dependencies {
+        implementation(test.bundles.unit)
+      }
+    }
+    create<JvmTestSuite>("testIntegration") {
+      useJUnitJupiter()
+
+      dependencies {
+        implementation(test.bundles.integration)
+      }
+    }
+  }
 }
