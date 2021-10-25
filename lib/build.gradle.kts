@@ -6,21 +6,24 @@ plugins {
 
 dependencies {
   implementation(logs.bundles.default)
-  testImplementation(test.bundles.unit)
   detektPlugins(misc.detekt.formatting)
 }
 
-//testing {
-//  suites {
-//    named<JvmTestSuite>("test") {
-//      useJUnitJupiter()
-//
-//      dependencies {
-//        implementation(test.bundles.unit)
-//      }
-//    }
-//    create<JvmTestSuite>("testIntegration") {
-//      useJUnitJupiter()
-//    }
-//  }
-//}
+testing {
+  suites {
+    named<JvmTestSuite>("test") {
+      useJUnitJupiter()
+
+      dependencies {
+        implementation(test.bundles.unit)
+      }
+    }
+    create<JvmTestSuite>("testIntegration") {
+      useJUnitJupiter()
+
+      dependencies {
+        implementation(test.bundles.integration)
+      }
+    }
+  }
+}

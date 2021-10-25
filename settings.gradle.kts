@@ -86,7 +86,18 @@ dependencyResolutionManagement {
           "kotest-assertions-json",
           "kotest-assertions-ktor",
           "kotest-property",
-          "mockk"
+          "mockk",
+        )
+      )
+
+      bundle(
+        "integration",
+        listOf(
+          "kotest-runner-junit",
+          "kotest-assertions-core",
+          "kotest-assertions-json",
+          "kotest-assertions-ktor",
+          "kotest-property",
         )
       )
     }
