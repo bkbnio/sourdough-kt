@@ -15,7 +15,7 @@ publishing {
   repositories {
     maven {
       name = "GithubPackages"
-      url = uri("https://maven.pkg.github.com/bkbnio/kompendium")
+      url = uri("https://maven.pkg.github.com/CHANGEME/CHANGEME")
       credentials {
         username = System.getenv("GITHUB_ACTOR")
         password = System.getenv("GITHUB_TOKEN")
@@ -32,9 +32,9 @@ publishing {
       version = project.version.toString()
 
       pom {
-        name.set("Kompendium")
-        description.set("A minimally invasive OpenAPI spec generator for Ktor")
-        url.set("https://github.com/bkbnio/Kompendium")
+        name.set("CHANGEME")
+        description.set("CHANGEME")
+        url.set("https://github.com/CHANGEME/CHANGEME")
         licenses {
           license {
             name.set("MIT License")
@@ -43,15 +43,15 @@ publishing {
         }
         developers {
           developer {
-            id.set("bkbnio")
+            id.set("CHANGEME")
             name.set("Ryan Brink")
             email.set("admin@bkbn.io")
           }
         }
         scm {
-          connection.set("scm:git:git://github.com/bkbnio/Kompendium.git")
-          developerConnection.set("scm:git:ssh://github.com/bkbnio/Kompendium.git")
-          url.set("https://github.com/bkbnio/Kompendium.git")
+          connection.set("scm:git:git://github.com/CHANGEME/CHANGEME.git")
+          developerConnection.set("scm:git:ssh://github.com/CHANGEME/CHANGEME.git")
+          url.set("https://github.com/CHANGEME/CHANGEME.git")
         }
       }
     }
