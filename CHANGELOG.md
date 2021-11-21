@@ -6,4 +6,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.1] - MM/DD/YYYY
 
-- Started my project using sourdough ❤️
+- Started my project using [sourdough](https://github.com/bkbnio/sourdough-kt) ❤️
