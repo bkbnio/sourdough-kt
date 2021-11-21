@@ -1,12 +1,10 @@
 plugins {
-  application
+  id("kotlin-application-conventions")
 }
 
 dependencies {
   implementation(projects.lib)
-  implementation(logs.bundles.default)
   implementation(ktor.bundles.server)
-  detektPlugins(misc.detekt.formatting)
 }
 
 application {
@@ -16,17 +14,15 @@ application {
 testing {
   suites {
     named<JvmTestSuite>("test") {
-      useJUnitJupiter()
-
       dependencies {
-        implementation(test.bundles.unit)
+        implementation("io.ktor:ktor-client-mock:1.6.5")
+        implementation("io.kotest:kotest-assertions-ktor:4.4.3")
       }
     }
-    create<JvmTestSuite>("testIntegration") {
-      useJUnitJupiter()
-
+    named<JvmTestSuite>("testIntegration") {
       dependencies {
-        implementation(test.bundles.integration)
+        implementation("io.ktor:ktor-client-mock:1.6.5")
+        implementation("io.kotest:kotest-assertions-ktor:4.4.3")
       }
     }
   }
