@@ -22,28 +22,20 @@ object Groups {
 }
 
 dependencyResolutionManagement {
-  val detektVersion: String by settings
   val gitHookVersion: String by settings
   val nexusPublishVersion: String by settings
-  val kotestVersion: String by settings
-  val kotlinVersion: String by settings
+  val kotlinxSerializationPluginVersion: String by settings
   val kotlinxCoroutinesVersion: String by settings
   val kotlinxCliVersion: String by settings
   val kotlinxDatetimeVersion: String by settings
   val kotlinxSerializationVersion: String by settings
   val ktorVersion: String by settings
-  val logbackVersion: String by settings
-  val mockkVersion: String by settings
-  val slf4jVersion: String by settings
-  val testLoggerVersion: String by settings
 
   versionCatalogs {
     create("build") {
       alias("git-hooks").toPluginId("com.github.jakemarsden.git-hooks").version(gitHookVersion)
-      alias("kotlin").toPluginId("org.jetbrains.kotlin.jvm").version(kotlinVersion)
       alias("nexus-publish").toPluginId("io.github.gradle-nexus.publish-plugin").version(nexusPublishVersion)
-      alias("serialization").toPluginId("org.jetbrains.kotlin.plugin.serialization").version(kotlinVersion)
-      alias("test-logger").toPluginId("com.adarshr.test-logger").version(testLoggerVersion)
+      alias("serialization").toPluginId("org.jetbrains.kotlin.plugin.serialization").version(kotlinxSerializationPluginVersion)
     }
     create("ktor") {
       alias("server-core").to(Groups.ktor, "ktor-server-core").version(ktorVersion)

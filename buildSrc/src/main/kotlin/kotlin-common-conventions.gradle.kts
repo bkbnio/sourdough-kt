@@ -54,7 +54,7 @@ java {
 }
 
 detekt {
-  toolVersion = "1.19.0-RC1"
+  toolVersion = "1.19.0-RC2"
   config = files("${rootProject.projectDir}/detekt.yml")
   buildUponDefaultConfig = true
 }
@@ -89,7 +89,7 @@ dependencies {
   implementation("ch.qos.logback:logback-core:1.2.3")
 
   // Formatting
-  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0-RC1")
+  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0-RC2")
 }
 
 testing {
