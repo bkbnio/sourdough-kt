@@ -5,6 +5,7 @@ plugins {
   kotlin("jvm")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
+  id("com.dorongold.task-tree")
   idea
   java
   jacoco
