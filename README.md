@@ -11,9 +11,7 @@ be compiled as individual modules, that users can pick and choose from when star
     3. [CLI](#cli)
     4. [Lib](#lib)
 2. [Tooling](#tooling)
-3. [Gradle](#gradle)
-    1. [Approach](#approach)
-    2. [Plugins](#plugins)
+   1. [Gradle](#gradle)
 
 ## Modules
 
@@ -43,37 +41,6 @@ modules
 
 ### Gradle
 
-Gradle is used extensively to provide the out-of-the-box configuration for each of the respective modules in this
-template.
-
-#### Approach
-
-Gradle has a _ton_ of features. Perhaps too many. Definitely too many. With that said, this template leverages several
-of those features to try to provide a sane, flexible starting point that will serve any type of JVM based application
-you choose to build.
-
-For conventions that are used across modules, there is a `buildSrc` folder that contains a number of convention plugins
-that can be reused in each module. At the moment, there is a base configuration along with explicit `library`
-and `application` conventions.
-
-Use them in accordance with your needs.
-
-For module level overrides, this template uses a version catalog that can be found in the `settings.gradle.kts` file.
-
-This allows typesafe access to plugins and dependencies. Unfortunately, due to some intricacies in the way that Gradle
-builds, these accessors cannot be use in the `buildSrc`.
-
-#### Plugins
-
-This template leverages several of the amazing community plugins to provide an awesome experience out of the box.
-
-- [Detekt](https://detekt.github.io/detekt/) for static analysis
-- [Test Logger](https://github.com/radarsh/gradle-test-logger-plugin) for improved test output
-- [Task Tree](https://github.com/dorongold/gradle-task-tree) for easily triaging which gradle tasks are performed during
-  a given task
-- [Jacoco](https://docs.gradle.org/current/userguide/jacoco_plugin.html) for test coverage (will eventually be replaced
-  with Kover)
-- [Dokka](https://github.com/Kotlin/dokka) TODO
-- [Git Hooks](https://github.com/jakemarsden/git-hooks-gradle-plugin) to perform gradle tasks ahead of version control
-  operations
-- [Nexus Publishing](https://github.com/gradle-nexus/publish-plugin) to push libraries to Maven Central
+This library leverages the [sourdough-gradle](https://github.com/bkbnio/sourdough-gradle) collection of plugins to autoconfigure a majority of the boilerplate
+necessary to get this repo up and running. For more information on all the setup that plugin does, please refer to its
+documentation
