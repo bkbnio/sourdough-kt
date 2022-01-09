@@ -1,10 +1,12 @@
 plugins {
-  id("kotlin-application-conventions")
+  application
 }
 
 dependencies {
   implementation(projects.lib)
-  implementation(ktor.bundles.server)
+
+  implementation(group = "io.ktor", name = "ktor-server-core", version = "1.6.7")
+  implementation(group = "io.ktor", name = "ktor-server-netty", version = "1.6.7")
 }
 
 application {
@@ -15,14 +17,24 @@ testing {
   suites {
     named<JvmTestSuite>("test") {
       dependencies {
-        implementation("io.ktor:ktor-client-mock:1.6.5")
+        // Kotest
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.3")
+        implementation("io.kotest:kotest-assertions-core-jvm:5.0.3")
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
+
+        // Ktor
+        implementation("io.ktor:ktor-client-mock:1.6.5")
       }
     }
-    named<JvmTestSuite>("testIntegration") {
+    create<JvmTestSuite>("testIntegration") {
       dependencies {
-        implementation("io.ktor:ktor-client-mock:1.6.5")
+        // Kotest
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.3")
+        implementation("io.kotest:kotest-assertions-core-jvm:5.0.3")
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
+
+        // Ktor
+        implementation("io.ktor:ktor-client-mock:1.6.5")
       }
     }
   }

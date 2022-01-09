@@ -1,8 +1,14 @@
-// Tracking -> https://youtrack.jetbrains.com/issue/KTIJ-19369
-@Suppress("DSL_SCOPE_VIOLATION")
+import io.bkbn.sourdough.gradle.core.extension.SourdoughLibraryExtension
+
 plugins {
-  alias(build.plugins.git.hooks)
-  alias(build.plugins.nexus.publish)
+  id("io.bkbn.sourdough.root") version "0.3.3"
+  id("com.github.jakemarsden.git-hooks") version "0.0.2"
+}
+
+sourdough {
+  toolChainJavaVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.majorVersion))
+  jvmTarget.set(JavaVersion.VERSION_11.majorVersion)
+  compilerArgs.set(listOf("-opt-in=kotlin.RequiresOptIn"))
 }
 
 gitHooks {
@@ -14,11 +20,14 @@ gitHooks {
   )
 }
 
-nexusPublishing {
-  repositories {
-    sonatype {
-      nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-      snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+allprojects {
+  group = "io.bkbn"
+  version = run {
+    val baseVersion =
+      project.findProperty("project.version") ?: error("project.version needs to be set in gradle.properties")
+    when ((project.findProperty("release") as? String)?.toBoolean()) {
+      true -> baseVersion
+      else -> "$baseVersion-SNAPSHOT"
     }
   }
 }
