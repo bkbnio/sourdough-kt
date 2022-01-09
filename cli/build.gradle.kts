@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
   implementation(projects.lib)
-  implementation(ktx.cli)
+  implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-cli-jvm", version = "0.3.3")
 }
 
 application {

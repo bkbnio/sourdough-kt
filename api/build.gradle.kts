@@ -4,7 +4,9 @@ plugins {
 
 dependencies {
   implementation(projects.lib)
-  implementation(ktor.bundles.server)
+
+  implementation(group = "io.ktor", name = "ktor-server-core", version = "1.6.7")
+  implementation(group = "io.ktor", name = "ktor-server-netty", version = "1.6.7")
 }
 
 application {
