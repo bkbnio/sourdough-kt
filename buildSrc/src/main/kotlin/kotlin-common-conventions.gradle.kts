@@ -87,7 +87,7 @@ dependencies {
   // Logging
   implementation("org.slf4j:slf4j-api:1.7.30")
   implementation("ch.qos.logback:logback-classic:1.2.3")
-  implementation("ch.qos.logback:logback-core:1.2.3")
+  implementation("ch.qos.logback:logback-core:1.2.10")
 
   // Formatting
   detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0-RC2")
