@@ -1,12 +1,12 @@
-name: Publish to GitHub Packages
+name: Publish Release
 on:
   release:
     types:
       - prereleased
       - released
-#env:
-#  ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SONATYPE_SIGNING_KEY }}
-#  ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SONATYPE_SIGNING_PASSWORD }}
+env:
+  ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SONATYPE_SIGNING_KEY }}
+  ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SONATYPE_SIGNING_PASSWORD }}
 jobs:
   publish-to-github:
     runs-on: ubuntu-latest
@@ -15,18 +15,16 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '11'
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
+          java-version: '17'
+      - name: Publish to GitHub Packages
+        uses: burrunan/gradle-cache-action@v1
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-gradle
-      - name: Publish packages to Github
-        run: echo "uncomment code below"
-#        run: ./gradlew publishAllPublicationsToGithubPackagesRepository -Prelease=true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gradle-version: wrapper
+          arguments: publishAllPublicationsToGithubPackagesRepository
+          properties: |
+            release=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish-to-nexus:
     runs-on: ubuntu-latest
     steps:
@@ -34,16 +32,14 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '11'
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
+          java-version: '17'
+      - name: Publlish to Maven Central
+        uses: burrunan/gradle-cache-action@v1
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-gradle
-      - name: Publish packages to Github
-        run: echo "uncomment code below"
-#        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -Prelease=true
-#        env:
-#          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USER }}
-#          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
+          gradle-version: wrapper
+          arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
+          properties: |
+            release=true
+        env:
+          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USER }}
+          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
