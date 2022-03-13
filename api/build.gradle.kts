@@ -22,7 +22,7 @@ testing {
     named<JvmTestSuite>("test") {
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.1.0")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.2.0")
         implementation("io.kotest:kotest-assertions-core-jvm:5.2.0")
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
@@ -33,7 +33,7 @@ testing {
     create<JvmTestSuite>("testIntegration") {
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.1.0")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.2.0")
         implementation("io.kotest:kotest-assertions-core-jvm:5.2.0")
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
