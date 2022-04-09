@@ -20,7 +20,7 @@ testing {
       dependencies {
         // Kotest
         implementation("io.kotest:kotest-runner-junit5-jvm:5.2.2")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.2.2")
+        implementation("io.kotest:kotest-assertions-core-jvm:5.2.3")
       }
     }
   }
