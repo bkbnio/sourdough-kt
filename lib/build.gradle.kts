@@ -1,5 +1,5 @@
 plugins {
-  kotlin("jvm") version "1.6.10"
+  kotlin("jvm") version "1.6.21"
   kotlin("plugin.serialization") version "1.6.21"
   id("io.bkbn.sourdough.library.jvm") version "0.6.0"
   id("io.gitlab.arturbosch.detekt") version "1.19.0"
