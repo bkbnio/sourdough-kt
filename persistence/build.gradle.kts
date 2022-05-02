@@ -11,7 +11,7 @@ dependencies {
   implementation(projects.domain)
 
   // Flyway
-  implementation( "org.flywaydb:flyway-core:8.5.9")
+  implementation( "org.flywaydb:flyway-core:8.5.10")
 
   // Hikari
   implementation("com.zaxxer:HikariCP:5.0.1")
