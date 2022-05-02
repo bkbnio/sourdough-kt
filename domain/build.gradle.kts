@@ -1,17 +1,11 @@
 plugins {
   kotlin("jvm")
-  id("io.bkbn.sourdough.application.jvm")
+  kotlin("plugin.serialization")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
-  application
-}
-
-sourdoughApp {
-  mainClassName.set("io.bkbn.sourdough.app.AppKt")
-}
-
-dependencies {
-  implementation(projects.persistence)
+  id("org.jetbrains.dokka")
+  id("maven-publish")
+  id("java-library")
 }
 
 testing {
