@@ -2,8 +2,10 @@ rootProject.name = "sourdough-kt"
 
 include("app")
 include("api")
-include("lib")
 include("cli")
+include("client")
+include("domain")
+include("persistence")
 
 // Feature Previews
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

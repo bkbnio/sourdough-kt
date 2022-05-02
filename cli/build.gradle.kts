@@ -1,16 +1,28 @@
 plugins {
-  kotlin("jvm") version "1.6.10"
-  id("io.bkbn.sourdough.application.jvm") version "0.6.0"
-  id("io.gitlab.arturbosch.detekt") version "1.19.0"
-  id("com.adarshr.test-logger") version "3.2.0"
+  kotlin("jvm")
+  id("io.bkbn.sourdough.application.jvm")
+  id("io.gitlab.arturbosch.detekt")
+  id("com.adarshr.test-logger")
   application
 }
 
-sourdough {
+sourdoughApp {
   mainClassName.set("io.bkbn.sourdough.cli.EntrypointKt")
 }
 
 dependencies {
-  implementation(projects.lib)
-  implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-cli-jvm", version = "0.3.4")
+  // Sourdough
+  implementation(projects.persistence)
+  implementation(projects.domain)
+
+  // CLI
+  implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
+
+  // Data generation
+  implementation("io.github.unredundant:satisfaketion-core:0.6.4")
+  implementation("io.github.unredundant:satisfaketion-generators:0.6.4")
+  implementation("io.github.unredundant:satisfaketion-mutators:0.6.4")
+
+  // Logging
+  implementation("co.touchlab:kermit:1.1.1")
 }

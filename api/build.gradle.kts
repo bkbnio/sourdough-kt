@@ -1,20 +1,33 @@
 plugins {
-  kotlin("jvm") version "1.6.10"
-  id("io.bkbn.sourdough.application.jvm") version "0.6.0"
-  id("io.gitlab.arturbosch.detekt") version "1.19.0"
-  id("com.adarshr.test-logger") version "3.2.0"
+  kotlin("jvm")
+  kotlin("plugin.serialization")
+  id("io.bkbn.sourdough.application.jvm")
+  id("io.gitlab.arturbosch.detekt")
+  id("com.adarshr.test-logger")
   application
 }
 
-sourdough {
+sourdoughApp {
   mainClassName.set("io.bkbn.sourdough.api.ApiKt")
 }
 
 dependencies {
-  implementation(projects.lib)
+  implementation(projects.domain)
+  implementation(projects.persistence)
 
-  implementation(group = "io.ktor", name = "ktor-server-core", version = "1.6.8")
-  implementation(group = "io.ktor", name = "ktor-server-netty", version = "1.6.8")
+  // Logging
+  implementation("ch.qos.logback:logback-classic:1.2.11")
+
+  // Serialization
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+
+  // Server
+  implementation("io.ktor:ktor-server-core:1.6.8")
+  implementation("io.ktor:ktor-server-netty:1.6.8")
+  implementation("io.ktor:ktor-serialization:1.6.8")
+
+  // OpenApi Generation
+  implementation("io.bkbn:kompendium-core:2.3.4")
 }
 
 testing {

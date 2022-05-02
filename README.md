@@ -10,6 +10,7 @@ be compiled as individual modules, that users can pick and choose from when star
     2. [App](#app)
     3. [CLI](#cli)
     4. [Lib](#lib)
+    5. [Persistence](#persistence)
 2. [Tooling](#tooling)
    1. [Gradle](#gradle)
 
@@ -36,6 +37,11 @@ Simple application to run background processes.
 
 Demo of the `java-library` plugin, allowing code to be packaged into a distributable for reuse in other applications /
 modules
+
+### Persistence
+
+Lightweight persistence module leveraging Flyway for migrations along with Kotlin Exposed as the ORM.  Out of the box it 
+is configured to point directly at the postgres instance defined in the docker compose file in the root of the project.
 
 ## Tooling
 

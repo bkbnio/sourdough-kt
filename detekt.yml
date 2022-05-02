@@ -4,11 +4,7 @@ complexity:
   LongParameterList:
     active: true
     functionThreshold: 10
-formatting:
-  ParameterListWrapping:
-    active: false
-  Indentation:
-    indentSize: 2
+
 style:
   MaxLineLength:
     excludes: ['**/test/**/*', '**/testIntegration/**/*']
