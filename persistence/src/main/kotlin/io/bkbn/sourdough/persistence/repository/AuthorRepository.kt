@@ -14,6 +14,14 @@ object AuthorRepository {
     entity.toAuthor()
   }
 
+  fun createMany(names: List<String>): List<Author> = transaction {
+    names.map { name ->
+      AuthorEntity.new {
+        this.name = name
+      }.toAuthor()
+    }
+  }
+
   fun read(id: UUID): Author = transaction {
     val entity = AuthorEntity.findById(id) ?: error("No author found with id: $id")
     entity.toAuthor()

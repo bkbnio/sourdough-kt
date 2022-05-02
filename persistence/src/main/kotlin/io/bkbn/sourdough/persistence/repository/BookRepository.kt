@@ -8,6 +8,13 @@ import java.util.UUID
 
 object BookRepository {
 
+  data class BookCreate(
+    val authorId: UUID,
+    val isbn: String,
+    val title: String,
+    val price: Float,
+  )
+
   fun create(
     authorId: UUID,
     isbn: String,
@@ -21,6 +28,19 @@ object BookRepository {
       this.price = price
     }
     entity.toBook()
+  }
+
+  fun createMany(
+    books: List<BookCreate>
+  ): List<Book> = transaction {
+    books.map {
+      BookEntity.new {
+        this.author = AuthorEntity.findById(it.authorId) ?: error("No author found with id: ${it.authorId}")
+        this.isbn = it.isbn
+        this.title = it.title
+        this.price = it.price
+      }.toBook()
+    }
   }
 
   fun read(id: UUID): Book = transaction {

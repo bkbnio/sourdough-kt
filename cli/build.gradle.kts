@@ -11,6 +11,18 @@ sourdoughApp {
 }
 
 dependencies {
+  // Sourdough
   implementation(projects.persistence)
-  implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-cli-jvm", version = "0.3.4")
+  implementation(projects.domain)
+
+  // CLI
+  implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
+
+  // Data generation
+  implementation("io.github.unredundant:satisfaketion-core:0.6.4")
+  implementation("io.github.unredundant:satisfaketion-generators:0.6.4")
+  implementation("io.github.unredundant:satisfaketion-mutators:0.6.4")
+
+  // Logging
+  implementation("co.touchlab:kermit:1.1.1")
 }
