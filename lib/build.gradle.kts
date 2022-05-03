@@ -13,8 +13,8 @@ plugins {
 sourdoughLibrary {
   githubOrg.set("bkbnio")
   githubRepo.set("sourdough-kt")
-  libraryName.set("sourdough-client")
-  libraryDescription.set("Sourdough Http Client ❤️")
+  libraryName.set("sourdough-library")
+  libraryDescription.set("Sourdough Library ❤️")
   licenseName.set("MIT License")
   licenseUrl.set("https://mit-license.org")
   developerId.set("unredundant")

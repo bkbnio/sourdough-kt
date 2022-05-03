@@ -5,6 +5,7 @@ include("api")
 include("cli")
 include("client")
 include("domain")
+include("lib")
 include("persistence")
 
 // Feature Previews
