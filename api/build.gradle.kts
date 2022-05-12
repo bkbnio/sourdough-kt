@@ -19,7 +19,7 @@ dependencies {
   implementation("ch.qos.logback:logback-classic:1.2.11")
 
   // Serialization
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
   // Server
   implementation("io.ktor:ktor-server-core:1.6.8")
