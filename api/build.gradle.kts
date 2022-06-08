@@ -27,7 +27,7 @@ dependencies {
   implementation("io.ktor:ktor-serialization:1.6.8")
 
   // OpenApi Generation
-  implementation("io.bkbn:kompendium-core:2.3.4")
+  implementation("io.bkbn:kompendium-core:2.3.5")
 }
 
 testing {
