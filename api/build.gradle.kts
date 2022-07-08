@@ -41,7 +41,7 @@ testing {
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
         // Ktor
-        implementation("io.ktor:ktor-client-mock:1.6.8")
+        implementation("io.ktor:ktor-client-mock:2.0.3")
       }
     }
     create<JvmTestSuite>("testIntegration") {
@@ -53,7 +53,7 @@ testing {
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
         // Ktor
-        implementation("io.ktor:ktor-client-mock:1.6.8")
+        implementation("io.ktor:ktor-client-mock:2.0.3")
       }
     }
   }
