@@ -22,7 +22,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
   // Server
-  implementation("io.ktor:ktor-server-core:1.6.8")
+  implementation("io.ktor:ktor-server-core:2.1.0")
   implementation("io.ktor:ktor-server-netty:1.6.8")
   implementation("io.ktor:ktor-serialization:1.6.8")
 
