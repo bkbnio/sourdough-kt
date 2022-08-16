@@ -33,4 +33,11 @@ allprojects {
       else -> "$baseVersion-SNAPSHOT"
     }
   }
+  plugins.withType(JavaPlugin::class.java) {
+    configure<JavaPluginExtension> {
+      toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+      }
+    }
+  }
 }
