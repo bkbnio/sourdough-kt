@@ -1,32 +1,8 @@
 package io.bkbn.sourdough.api.controller
 
-import io.bkbn.kompendium.core.Notarized.notarizedDelete
-import io.bkbn.kompendium.core.Notarized.notarizedGet
-import io.bkbn.kompendium.core.Notarized.notarizedPost
-import io.bkbn.kompendium.core.Notarized.notarizedPut
-import io.bkbn.kompendium.core.metadata.RequestInfo
-import io.bkbn.kompendium.core.metadata.ResponseInfo
-import io.bkbn.kompendium.core.metadata.method.DeleteInfo
-import io.bkbn.kompendium.core.metadata.method.GetInfo
-import io.bkbn.kompendium.core.metadata.method.PostInfo
-import io.bkbn.kompendium.core.metadata.method.PutInfo
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.createBook
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.deleteBook
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.getBook
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.updateBook
-import io.bkbn.sourdough.api.model.BookModels
-import io.bkbn.sourdough.api.model.ParameterModels
-import io.bkbn.sourdough.api.service.BookService
-import io.ktor.application.call
-import io.ktor.http.HttpStatusCode
-import io.ktor.request.receive
-import io.ktor.response.respond
-import io.ktor.routing.Route
-import io.ktor.routing.route
-import java.util.UUID
-
 object BookController {
 
+  /*
   private object TableOfContents {
     val createBook = PostInfo<Unit, BookModels.CreateRequest, BookModels.Response>(
       summary = "Create new book",
@@ -98,4 +74,6 @@ object BookController {
       }
     }
   }
+
+   */
 }
