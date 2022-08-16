@@ -6,6 +6,7 @@ import io.bkbn.kompendium.core.plugin.NotarizedApplication
 import io.bkbn.kompendium.core.routes.redoc
 import io.bkbn.kompendium.json.schema.definition.TypeDefinition
 import io.bkbn.kompendium.oas.serialization.KompendiumSerializersModule
+import io.bkbn.sourdough.api.controller.AuthorController.authorHandler
 import io.bkbn.sourdough.api.controller.BookController.bookHandler
 import io.bkbn.sourdough.api.controller.HealthCheckController.healthCheckHandler
 import io.bkbn.sourdough.api.documentation.ApplicationSpec
@@ -60,6 +61,7 @@ private fun Application.apiRoutes() {
   routing {
     redoc(pageTitle = "Sourdough Docs")
     healthCheckHandler()
+    authorHandler()
     bookHandler()
   }
 }
