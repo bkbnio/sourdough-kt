@@ -23,9 +23,9 @@ object HealthCheckController {
 
   private fun Route.documentation() {
     install(NotarizedRoute()) {
+      tags = setOf("Util")
       get = GetInfo.builder {
         summary("Health Check")
-        tags("Util")
         description("Used predominantly for automated health checks")
         response {
           responseCode(HttpStatusCode.OK)

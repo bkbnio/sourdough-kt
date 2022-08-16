@@ -6,6 +6,7 @@ import io.bkbn.kompendium.core.plugin.NotarizedApplication
 import io.bkbn.kompendium.core.routes.redoc
 import io.bkbn.kompendium.json.schema.definition.TypeDefinition
 import io.bkbn.kompendium.oas.serialization.KompendiumSerializersModule
+import io.bkbn.sourdough.api.controller.BookController.bookHandler
 import io.bkbn.sourdough.api.controller.HealthCheckController.healthCheckHandler
 import io.bkbn.sourdough.api.documentation.ApplicationSpec
 import io.bkbn.sourdough.persistence.ConnectionManager
@@ -35,37 +36,6 @@ fun main() {
     port = 8080,
     module = Application::mainModule
   ).start(wait = true)
-  /*
-  embeddedServer(
-    Netty,
-    port = 8080,
-    module = {
-      install(Kompendium) {
-        addCustomTypeSchema(
-          LocalDateTime::class, FormattedSchema(
-            format = "date-time", type =
-            "string"
-          )
-        )
-        spec = OpenApiSpec(
-          info = Info(
-            title = "Sourdough API",
-            version = "0.0.1",
-            description = "A delicious starter for your API",
-            termsOfService = URI("https://gph.is/g/ZPJ1yyX"),
-          ),
-          servers = mutableListOf(Server(url = URI("/"), description = "This server"))
-        )
-      }
-      routing {
-        redoc(pageTitle = "Sourdough Docs")
-        healthRoute()
-        authorRoute()
-        bookRoute()
-      }
-    }
-  ).start(wait = true)
-   */
 }
 
 private fun Application.mainModule() {
@@ -90,6 +60,6 @@ private fun Application.apiRoutes() {
   routing {
     redoc(pageTitle = "Sourdough Docs")
     healthCheckHandler()
-    // todo
+    bookHandler()
   }
 }
