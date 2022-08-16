@@ -1,101 +1,137 @@
 package io.bkbn.sourdough.api.controller
 
-import io.bkbn.kompendium.core.Notarized.notarizedDelete
-import io.bkbn.kompendium.core.Notarized.notarizedGet
-import io.bkbn.kompendium.core.Notarized.notarizedPost
-import io.bkbn.kompendium.core.Notarized.notarizedPut
-import io.bkbn.kompendium.core.metadata.RequestInfo
-import io.bkbn.kompendium.core.metadata.ResponseInfo
-import io.bkbn.kompendium.core.metadata.method.DeleteInfo
-import io.bkbn.kompendium.core.metadata.method.GetInfo
-import io.bkbn.kompendium.core.metadata.method.PostInfo
-import io.bkbn.kompendium.core.metadata.method.PutInfo
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.createBook
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.deleteBook
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.getBook
-import io.bkbn.sourdough.api.controller.BookController.TableOfContents.updateBook
+import io.bkbn.kompendium.core.metadata.DeleteInfo
+import io.bkbn.kompendium.core.metadata.GetInfo
+import io.bkbn.kompendium.core.metadata.MethodInfo
+import io.bkbn.kompendium.core.metadata.PostInfo
+import io.bkbn.kompendium.core.metadata.PutInfo
+import io.bkbn.kompendium.core.plugin.NotarizedRoute
+import io.bkbn.kompendium.json.schema.definition.TypeDefinition
+import io.bkbn.kompendium.oas.payload.Parameter
 import io.bkbn.sourdough.api.model.BookModels
-import io.bkbn.sourdough.api.model.ParameterModels
+import io.bkbn.sourdough.api.model.ExceptionModels
 import io.bkbn.sourdough.api.service.BookService
-import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
-import io.ktor.request.receive
-import io.ktor.response.respond
-import io.ktor.routing.Route
-import io.ktor.routing.route
+import io.ktor.server.application.call
+import io.ktor.server.application.install
+import io.ktor.server.request.receive
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.delete
+import io.ktor.server.routing.get
+import io.ktor.server.routing.post
+import io.ktor.server.routing.put
+import io.ktor.server.routing.route
 import java.util.UUID
 
 object BookController {
 
-  private object TableOfContents {
-    val createBook = PostInfo<Unit, BookModels.CreateRequest, BookModels.Response>(
-      summary = "Create new book",
-      requestInfo = RequestInfo(
-        description = "Metadata required for book model"
-      ),
-      responseInfo = ResponseInfo(
-        HttpStatusCode.Created,
-        description = "Book was successfully created"
-      ),
-      tags = setOf("Book")
-    )
-
-    val getBook = GetInfo<ParameterModels.GetById, BookModels.Response>(
-      summary = "Get book by id",
-      responseInfo = ResponseInfo(
-        HttpStatusCode.OK,
-        description = "Book was retrieved successfully"
-      ),
-      tags = setOf("Book")
-    )
-
-    val updateBook = PutInfo<ParameterModels.GetById, BookModels.UpdateRequest, BookModels.Response>(
-      summary = "Update book",
-      requestInfo = RequestInfo(
-        description = "Fields that can be updated on an Book model"
-      ),
-      responseInfo = ResponseInfo(
-        HttpStatusCode.Created,
-        description = "Book was updated successfully"
-      ),
-      tags = setOf("Book")
-    )
-
-    val deleteBook = DeleteInfo<ParameterModels.GetById, Unit>(
-      summary = "Deletes a book",
-      responseInfo = ResponseInfo(
-        status = HttpStatusCode.NoContent,
-        description = "Book was successfully deleted"
-      ),
-      tags = setOf("Book")
-    )
-  }
-
-  fun Route.bookRoute() {
+  fun Route.bookHandler() {
     route("/book") {
-      notarizedPost(createBook) {
+      rootDocumentation()
+      post {
         val request = call.receive<BookModels.CreateRequest>()
         val result = BookService.create(request)
         call.respond(HttpStatusCode.Created, result)
       }
       route("/{id}") {
-        notarizedGet(getBook) {
+        idDocumentation()
+        get {
           val id = UUID.fromString(call.parameters["id"])
           val result = BookService.read(id)
           call.respond(HttpStatusCode.OK, result)
         }
-        notarizedPut(updateBook) {
+        put {
           val id = UUID.fromString(call.parameters["id"])
           val request = call.receive<BookModels.UpdateRequest>()
           val result = BookService.update(id, request)
           call.respond(HttpStatusCode.Created, result)
         }
-        notarizedDelete(deleteBook) {
+        delete {
           val id = UUID.fromString(call.parameters["id"])
           BookService.delete(id)
           call.respond(HttpStatusCode.NoContent)
         }
       }
+    }
+  }
+
+  private fun Route.rootDocumentation() {
+    install(NotarizedRoute()) {
+      tags = setOf("Book")
+      post = PostInfo.builder {
+        summary("Create Book")
+        description("Will persist the provided book entity")
+        request {
+          requestType<BookModels.CreateRequest>()
+          description("Information required to persist a new book entity")
+        }
+        response {
+          responseCode(HttpStatusCode.Created)
+          responseType<BookModels.Response>()
+          description("Indicates that the book was persisted successfully")
+        }
+      }
+    }
+  }
+
+  private fun Route.idDocumentation() {
+    install(NotarizedRoute()) {
+      tags = setOf("Book")
+      parameters = listOf(
+        Parameter(
+          name = "id",
+          `in` = Parameter.Location.path,
+          schema = TypeDefinition.UUID
+        )
+      )
+      get = GetInfo.builder {
+        summary("Get Book by ID")
+        description("Retrieves a book entity by it's ID or returns an error")
+        response {
+          responseCode(HttpStatusCode.OK)
+          responseType<BookModels.Response>()
+          description("The book was found successfully")
+        }
+        standardErrors()
+      }
+      put = PutInfo.builder {
+        summary("Update Book by ID")
+        description("Will update an existing book entity in place")
+        request {
+          requestType<BookModels.UpdateRequest>()
+          description("Any provided non-null field will override the existing data")
+        }
+        response {
+          responseCode(HttpStatusCode.Created)
+          responseType<BookModels.Response>()
+          description("The book was found successfully")
+        }
+        standardErrors()
+      }
+      delete = DeleteInfo.builder {
+        summary("Delete Book by ID")
+        description("Deletes the matching book entity")
+        response {
+          responseCode(HttpStatusCode.NoContent)
+          responseType<Unit>()
+          description("Indicates that the book was deleted successfully")
+        }
+        standardErrors()
+      }
+    }
+  }
+
+  private fun MethodInfo.Builder<*>.standardErrors() {
+    canRespond {
+      description("Indicates that the payload did not match the expected input")
+      responseCode(HttpStatusCode.BadRequest)
+      responseType<ExceptionModels.Standard>()
+    }
+    canRespond {
+      description("The provided ID did not match any existing book entities")
+      responseCode(HttpStatusCode.NotFound)
+      responseType<ExceptionModels.Standard>()
     }
   }
 }

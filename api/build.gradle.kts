@@ -22,12 +22,22 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
   // Server
-  implementation("io.ktor:ktor-server-core:1.6.8")
-  implementation("io.ktor:ktor-server-netty:1.6.8")
-  implementation("io.ktor:ktor-serialization:1.6.8")
+  val ktorVersion: String by project
+
+  implementation("io.ktor:ktor-server-core:$ktorVersion")
+  implementation("io.ktor:ktor-server-cio:$ktorVersion")
+  implementation("io.ktor:ktor-server-auth:$ktorVersion")
+  implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
+  implementation("io.ktor:ktor-serialization:$ktorVersion")
+  implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+  implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+  implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
   // OpenApi Generation
-  implementation("io.bkbn:kompendium-core:2.3.5")
+  implementation("io.bkbn:kompendium-core:3.0.0")
+
+  // Datetime
+  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 }
 
 testing {
@@ -36,8 +46,8 @@ testing {
       useJUnitJupiter()
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.3.2")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.3.2")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.4.2")
+        implementation("io.kotest:kotest-assertions-core-jvm:5.4.2")
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
         // Ktor
@@ -48,8 +58,8 @@ testing {
       useJUnitJupiter()
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.3.2")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.3.2")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.4.2")
+        implementation("io.kotest:kotest-assertions-core-jvm:5.4.2")
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
         // Ktor
