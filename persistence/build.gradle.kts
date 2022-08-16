@@ -11,13 +11,13 @@ dependencies {
   implementation(projects.domain)
 
   // Flyway
-  implementation( "org.flywaydb:flyway-core:8.5.10")
+  implementation( "org.flywaydb:flyway-core:8.5.13")
 
   // Hikari
   implementation("com.zaxxer:HikariCP:5.0.1")
 
   // Driver
-  implementation("org.postgresql:postgresql:42.3.4")
+  implementation("org.postgresql:postgresql:42.4.0")
 
   // Exposed
   implementation("org.jetbrains.exposed:exposed-core:0.38.2")

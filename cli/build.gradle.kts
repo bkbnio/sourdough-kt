@@ -16,7 +16,7 @@ dependencies {
   implementation(projects.domain)
 
   // CLI
-  implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
+  implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.5")
 
   // Data generation
   implementation("io.github.unredundant:satisfaketion-core:0.6.4")
@@ -24,5 +24,5 @@ dependencies {
   implementation("io.github.unredundant:satisfaketion-mutators:0.6.4")
 
   // Logging
-  implementation("co.touchlab:kermit:1.1.1")
+  implementation("co.touchlab:kermit:1.1.3")
 }
