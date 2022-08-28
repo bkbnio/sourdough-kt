@@ -1,3 +1,5 @@
+import kotlinx.kover.api.DefaultJacocoEngine
+
 plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
@@ -20,4 +22,8 @@ testing {
       }
     }
   }
+}
+
+kover {
+  engine.set(DefaultJacocoEngine)
 }
