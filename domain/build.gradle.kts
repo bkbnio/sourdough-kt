@@ -3,8 +3,8 @@ plugins {
   kotlin("plugin.serialization")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
-  id("org.jetbrains.dokka")
   id("org.jetbrains.kotlinx.kover")
+  id("org.jetbrains.dokka")
   id("maven-publish")
   id("java-library")
 }
