@@ -1,9 +1,12 @@
+import kotlinx.kover.api.DefaultJacocoEngine
+
 plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
   id("io.bkbn.sourdough.library.jvm")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
+  id("org.jetbrains.kotlinx.kover")
   id("org.jetbrains.dokka")
   id("org.jetbrains.kotlinx.kover")
   id("maven-publish")
@@ -33,4 +36,8 @@ testing {
       }
     }
   }
+}
+
+kover {
+  engine.set(DefaultJacocoEngine)
 }
