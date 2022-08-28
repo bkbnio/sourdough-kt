@@ -3,6 +3,7 @@ plugins {
   id("io.bkbn.sourdough.library.jvm")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
+  id("org.jetbrains.kotlinx.kover")
   id("org.jetbrains.dokka")
 }
 
@@ -11,19 +12,19 @@ dependencies {
   implementation(projects.domain)
 
   // Flyway
-  implementation( "org.flywaydb:flyway-core:8.5.13")
+  implementation( "org.flywaydb:flyway-core:9.2.0")
 
   // Hikari
   implementation("com.zaxxer:HikariCP:5.0.1")
 
   // Driver
-  implementation("org.postgresql:postgresql:42.4.0")
+  implementation("org.postgresql:postgresql:42.4.2")
 
   // Exposed
-  implementation("org.jetbrains.exposed:exposed-core:0.38.2")
-  implementation("org.jetbrains.exposed:exposed-dao:0.38.2")
-  implementation("org.jetbrains.exposed:exposed-jdbc:0.38.2")
-  implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.38.2")
+  implementation("org.jetbrains.exposed:exposed-core:0.39.2")
+  implementation("org.jetbrains.exposed:exposed-dao:0.39.2")
+  implementation("org.jetbrains.exposed:exposed-jdbc:0.39.2")
+  implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.39.2")
 }
 
 
