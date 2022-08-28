@@ -4,6 +4,7 @@ plugins {
   id("io.bkbn.sourdough.application.jvm")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
+  id("org.jetbrains.kotlinx.kover")
   application
 }
 
@@ -41,6 +42,10 @@ dependencies {
 }
 
 testing {
+
+  // Server
+  val ktorVersion: String by project
+
   suites {
     named<JvmTestSuite>("test") {
       useJUnitJupiter()
@@ -51,7 +56,7 @@ testing {
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
         // Ktor
-        implementation("io.ktor:ktor-client-mock:1.6.8")
+        implementation("io.ktor:ktor-client-mock:$ktorVersion")
       }
     }
     create<JvmTestSuite>("testIntegration") {
@@ -63,7 +68,7 @@ testing {
         implementation("io.kotest:kotest-assertions-ktor:4.4.3")
 
         // Ktor
-        implementation("io.ktor:ktor-client-mock:1.6.8")
+        implementation("io.ktor:ktor-client-mock:$ktorVersion")
       }
     }
   }

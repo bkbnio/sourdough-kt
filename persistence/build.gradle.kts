@@ -3,6 +3,7 @@ plugins {
   id("io.bkbn.sourdough.library.jvm")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
+  id("org.jetbrains.kotlinx.kover")
   id("org.jetbrains.dokka")
 }
 
@@ -11,7 +12,7 @@ dependencies {
   implementation(projects.domain)
 
   // Flyway
-  implementation( "org.flywaydb:flyway-core:8.5.13")
+  implementation( "org.flywaydb:flyway-core:9.2.0")
 
   // Hikari
   implementation("com.zaxxer:HikariCP:5.0.1")
