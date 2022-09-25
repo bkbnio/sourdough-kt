@@ -17,7 +17,7 @@ dependencies {
   implementation(projects.persistence)
 
   // Logging
-  implementation("ch.qos.logback:logback-classic:1.4.0")
+  implementation("ch.qos.logback:logback-classic:1.4.1")
 
   // Serialization
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
