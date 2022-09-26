@@ -35,7 +35,7 @@ dependencies {
   implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
   // OpenApi Generation
-  implementation("io.bkbn:kompendium-core:3.2.0")
+  implementation("io.bkbn:kompendium-core:3.3.0")
 
   // Datetime
   implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
