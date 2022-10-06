@@ -21,7 +21,7 @@ dependencies {
   implementation("org.postgresql:postgresql:42.5.0")
 
   // Exposed
-  implementation("org.jetbrains.exposed:exposed-core:0.39.2")
+  implementation("org.jetbrains.exposed:exposed-core:0.40.1")
   implementation("org.jetbrains.exposed:exposed-dao:0.39.2")
   implementation("org.jetbrains.exposed:exposed-jdbc:0.39.2")
   implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.39.2")
