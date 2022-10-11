@@ -2,7 +2,7 @@ plugins {
   // Root Plugins
   id("io.bkbn.sourdough.root") version "0.12.0"
   id("com.github.jakemarsden.git-hooks") version "0.0.2"
-  id("org.jetbrains.dokka") version "1.7.10"
+  id("org.jetbrains.dokka") version "1.7.20"
   id("org.jetbrains.kotlinx.kover") version "0.6.1"
 
   // Child Plugins
