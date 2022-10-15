@@ -20,7 +20,7 @@ dependencies {
   implementation("ch.qos.logback:logback-classic:1.4.4")
 
   // Serialization
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
   // Server
   val ktorVersion: String by project
