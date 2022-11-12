@@ -25,5 +25,5 @@ dependencies {
   implementation("io.github.unredundant:satisfaketion-mutators:0.6.4")
 
   // Logging
-  implementation("co.touchlab:kermit:1.1.3")
+  implementation("co.touchlab:kermit:1.2.2")
 }
