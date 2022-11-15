@@ -18,5 +18,6 @@
     {
       "matchPackagePatterns": ["exposed"],
       "groupName": "org.jetbrains.exposed"
+    }
   ]
 }
