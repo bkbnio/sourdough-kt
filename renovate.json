@@ -4,13 +4,19 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
-    }
+    },
+    {
+      "matchPackagePatterns": ["ktor"],
+      "groupName": "io.ktor"
+    },
+    {
+      "matchPackagePatterns": ["sourdough"],
+      "groupName": "io.bkbn"
+    },
+    {
+      "matchPackagePatterns": ["exposed"],
+      "groupName": "org.jetbrains.exposed"
   ]
 }
