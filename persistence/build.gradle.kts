@@ -17,7 +17,7 @@ dependencies {
   implementation("com.zaxxer:HikariCP:5.0.1")
 
   // Driver
-  implementation("org.postgresql:postgresql:42.5.0")
+  implementation("org.postgresql:postgresql:42.5.1")
 
   // Exposed
   implementation("org.jetbrains.exposed:exposed-core:0.41.1")
