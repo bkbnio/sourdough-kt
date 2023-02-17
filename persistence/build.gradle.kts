@@ -1,5 +1,6 @@
 plugins {
   kotlin("jvm")
+  id("com.google.devtools.ksp")
   id("io.bkbn.sourdough.library.jvm")
   id("io.gitlab.arturbosch.detekt")
   id("com.adarshr.test-logger")
@@ -7,6 +8,9 @@ plugins {
 }
 
 dependencies {
+  // Versions
+  val komapperVersion = "1.6.0"
+
   // Sourdough
   implementation(projects.domain)
 
@@ -16,14 +20,21 @@ dependencies {
   // Hikari
   implementation("com.zaxxer:HikariCP:5.0.1")
 
+  // Datetime
+  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
   // Driver
   implementation("org.postgresql:postgresql:42.5.1")
 
-  // Exposed
-  implementation("org.jetbrains.exposed:exposed-core:0.41.1")
-  implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
-  implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
-  implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.41.1")
+  implementation("org.postgresql:r2dbc-postgresql:1.0.0.RELEASE")
+  platform("org.komapper:komapper-platform:$komapperVersion").let {
+    implementation(it)
+    ksp(it)
+  }
+  implementation("org.komapper:komapper-starter-r2dbc")
+  implementation("org.komapper:komapper-dialect-postgresql-r2dbc")
+  implementation("org.komapper:komapper-datetime-r2dbc:$komapperVersion")
+  ksp("org.komapper:komapper-processor")
 }
 
 
