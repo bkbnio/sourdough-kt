@@ -9,6 +9,7 @@ import io.bkbn.kompendium.core.plugin.NotarizedRoute
 import io.bkbn.kompendium.json.schema.definition.TypeDefinition
 import io.bkbn.kompendium.oas.payload.Parameter
 import io.bkbn.sourdough.api.model.AuthorModels
+import io.bkbn.sourdough.api.model.BookModels
 import io.bkbn.sourdough.api.model.ExceptionModels
 import io.bkbn.sourdough.api.service.AuthorService
 import io.ktor.http.HttpStatusCode
@@ -51,6 +52,14 @@ object AuthorController {
           val id = UUID.fromString(call.parameters["id"])
           AuthorService.delete(id)
           call.respond(HttpStatusCode.NoContent)
+        }
+        route("/books") {
+          booksDocumentation()
+          get {
+            val id = UUID.fromString(call.parameters["id"])
+            val result = AuthorService.readBooks(id)
+            call.respond(HttpStatusCode.OK, result)
+          }
         }
       }
     }
@@ -116,6 +125,29 @@ object AuthorController {
           responseCode(HttpStatusCode.NoContent)
           responseType<Unit>()
           description("Indicates that the author was deleted successfully")
+        }
+        standardErrors()
+      }
+    }
+  }
+
+  private fun Route.booksDocumentation() {
+    install(NotarizedRoute()) {
+      tags = setOf("Author")
+      parameters = listOf(
+        Parameter(
+          name = "id",
+          `in` = Parameter.Location.path,
+          schema = TypeDefinition.UUID
+        )
+      )
+      get = GetInfo.builder {
+        summary("Get Author's Books by ID")
+        description("Retrieves a list of books by the author's ID or returns an error")
+        response {
+          responseCode(HttpStatusCode.OK)
+          responseType<List<BookModels.Response>>()
+          description("The authors books")
         }
         standardErrors()
       }

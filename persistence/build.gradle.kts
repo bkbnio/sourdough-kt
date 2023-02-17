@@ -9,7 +9,7 @@ plugins {
 
 dependencies {
   // Versions
-  val komapperVersion = "1.6.0"
+  val komapperVersion: String by project
 
   // Sourdough
   implementation(projects.domain)
@@ -43,6 +43,11 @@ kotlin {
   }
 }
 
+tasks {
+  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += listOf("-opt-in=org.komapper.annotation.KomapperExperimentalAssociation")
+  }
+}
 
 testing {
   suites {
