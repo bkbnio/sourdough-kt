@@ -1,18 +1,26 @@
 package io.bkbn.sourdough.persistence.repository
 
 import io.bkbn.sourdough.domain.Author
+import io.bkbn.sourdough.persistence.ConnectionManager
 import io.bkbn.sourdough.persistence.entity.AuthorEntity
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.bkbn.sourdough.persistence.entity.author
+import org.komapper.core.dsl.Meta
+import org.komapper.core.dsl.QueryDsl
 import java.util.UUID
 
 object AuthorRepository {
+  private val db = ConnectionManager.database
+  private val resource = Meta.author
 
-  fun create(name: String): Author = transaction {
-    val entity = AuthorEntity.new {
-      this.name = name
+  suspend fun create(name: String): Author = db.withTransaction {
+    db.runQuery {
+      QueryDsl.insert(resource).single(
+        AuthorEntity(
+          name = name
+        )
+      )
     }
-    entity.toAuthor()
-  }
+  }.toAuthor()
 
   fun createMany(names: List<String>): List<Author> = transaction {
     names.map { name ->

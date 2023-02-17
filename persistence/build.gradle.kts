@@ -37,6 +37,12 @@ dependencies {
   ksp("org.komapper:komapper-processor")
 }
 
+kotlin {
+  sourceSets.main {
+    kotlin.srcDir("build/generated/ksp/main/kotlin")
+  }
+}
+
 
 testing {
   suites {
