@@ -16,6 +16,9 @@ dependencies {
   implementation(projects.persistence)
   implementation(projects.domain)
 
+  // Coroutines
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+
   // CLI
   implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.5")
 

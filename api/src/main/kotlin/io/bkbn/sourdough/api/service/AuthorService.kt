@@ -6,22 +6,22 @@ import java.util.UUID
 
 object AuthorService {
 
-  fun create(request: AuthorModels.CreateRequest): AuthorModels.Response {
+  suspend fun create(request: AuthorModels.CreateRequest): AuthorModels.Response {
     val result = AuthorRepository.create(request.name)
     return AuthorModels.Response.fromAuthor(result)
   }
 
-  fun read(id: UUID): AuthorModels.Response {
+  suspend fun read(id: UUID): AuthorModels.Response {
     val result = AuthorRepository.read(id)
     return AuthorModels.Response.fromAuthor(result)
   }
 
-  fun update(id: UUID, request: AuthorModels.UpdateRequest): AuthorModels.Response {
+  suspend fun update(id: UUID, request: AuthorModels.UpdateRequest): AuthorModels.Response {
     val result = AuthorRepository.update(id, request.name)
     return AuthorModels.Response.fromAuthor(result)
   }
 
-  fun delete(id: UUID) {
+  suspend fun delete(id: UUID) {
     AuthorRepository.delete(id)
   }
 

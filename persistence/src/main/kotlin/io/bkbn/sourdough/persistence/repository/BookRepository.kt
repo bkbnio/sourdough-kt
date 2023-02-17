@@ -1,12 +1,19 @@
 package io.bkbn.sourdough.persistence.repository
 
-import io.bkbn.sourdough.domain.Book
-import io.bkbn.sourdough.persistence.entity.AuthorEntity
+import io.bkbn.sourdough.persistence.ConnectionManager
 import io.bkbn.sourdough.persistence.entity.BookEntity
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.bkbn.sourdough.persistence.entity.book
+import kotlinx.datetime.Clock
+import org.komapper.core.dsl.Meta
+import org.komapper.core.dsl.QueryDsl
+import org.komapper.core.dsl.query.andThen
+import org.komapper.core.dsl.query.single
 import java.util.UUID
 
 object BookRepository {
+
+  private val db = ConnectionManager.database
+  private val resource = Meta.book
 
   data class BookCreate(
     val authorId: UUID,
@@ -15,65 +22,75 @@ object BookRepository {
     val price: Float,
   )
 
-  fun create(
+  suspend fun create(
     authorId: UUID,
     isbn: String,
     title: String,
     price: Float,
-  ): Book = transaction {
-    val entity = BookEntity.new {
-      this.author = AuthorEntity.findById(authorId) ?: error("No author found with id: $authorId")
-      this.isbn = isbn
-      this.title = title
-      this.price = price
+  ) = db.withTransaction {
+    db.runQuery {
+      QueryDsl.insert(resource).single(
+        BookEntity(
+          authorId = authorId,
+          isbn = isbn,
+          title = title,
+          price = price,
+        )
+      )
     }
-    entity.toBook()
+  }.toBook()
+
+  suspend fun createMany(requests: List<BookCreate>) = db.withTransaction {
+    db.runQuery {
+      QueryDsl.insert(resource).multiple(
+        requests.map {
+          BookEntity(
+            authorId = it.authorId,
+            isbn = it.isbn,
+            title = it.title,
+            price = it.price,
+          )
+        }
+      )
+    }
+  }.map { it.toBook() }
+
+  suspend fun read(id: UUID) = db.withTransaction {
+    val result = db.runQuery {
+      val query = QueryDsl.from(resource).where { resource.id eq id }
+      query.single()
+    }
+    result.toBook()
   }
 
-  fun createMany(
-    books: List<BookCreate>
-  ): List<Book> = transaction {
-    books.map {
-      BookEntity.new {
-        this.author = AuthorEntity.findById(it.authorId) ?: error("No author found with id: ${it.authorId}")
-        this.isbn = it.isbn
-        this.title = it.title
-        this.price = it.price
-      }.toBook()
+  suspend fun update(id: UUID, authorId: UUID?, isbn: String?, title: String?, price: Float?) = db.withTransaction {
+    db.runQuery {
+      QueryDsl.update(resource)
+        .set {entity ->
+          authorId?.let { entity.authorId to it }
+          isbn?.let { entity.isbn to it }
+          title?.let { entity.title to it }
+          price?.let { entity.price to it }
+          entity.updatedAt to Clock.System.now()
+        }
+        .where {
+          resource.id eq id
+        }
+        .andThen(
+          QueryDsl.from(resource)
+            .where {
+              resource.id eq id
+            }.single()
+        )
+    }
+  }.toBook()
+
+  suspend fun delete(id: UUID) = db.withTransaction {
+    db.runQuery {
+      QueryDsl.delete(resource)
+        .where {
+          resource.id eq id
+        }
     }
   }
-
-  fun read(id: UUID): Book = transaction {
-    val entity = BookEntity.findById(id) ?: error("No book found with id: $id")
-    entity.toBook()
-  }
-
-  fun update(
-    id: UUID,
-    authorId: UUID?,
-    isbn: String?,
-    title: String?,
-    price: Float?,
-  ): Book = transaction {
-    val entity = BookEntity.findById(id) ?: error("No book found with id: $id")
-    authorId?.let {
-      entity.author = AuthorEntity.findById(it) ?: error("No author found with id: $it")
-    }
-    isbn?.let {
-      entity.isbn = it
-    }
-    title?.let {
-      entity.title = it
-    }
-    price?.let {
-      entity.price = it
-    }
-    entity.toBook()
-  }
-
-  fun delete(id: UUID) = transaction {
-    val entity = BookEntity.findById(id) ?: error("No book found with id: $id")
-    entity.delete()
-  }
-
 }

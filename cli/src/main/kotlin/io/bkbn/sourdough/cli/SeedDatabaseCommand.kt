@@ -12,6 +12,7 @@ import kotlin.random.Random
 import kotlinx.cli.ArgType
 import kotlinx.cli.Subcommand
 import kotlinx.cli.default
+import kotlinx.coroutines.runBlocking
 
 @Suppress("MagicNumber")
 class SeedDatabaseCommand : Subcommand("seed", "A command to seed your database with beautiful fake data") {
@@ -39,16 +40,14 @@ class SeedDatabaseCommand : Subcommand("seed", "A command to seed your database 
     // Perform Database Migrations
     ConnectionManager.performMigrations()
 
-    // Activate database connection
-    ConnectionManager.activateDatabaseConnection()
-
-
     val authors = (0..999).map {
       EnglishName.firstName.generate(random) + " " + EnglishName.lastName.generate(random)
     }.chunked(500)
       .mapIndexed { i, authors ->
         Logger.i("Saving 500 Authors to Database, iteration: $i")
-        AuthorRepository.createMany(authors)
+        runBlocking {
+          AuthorRepository.createMany(authors)
+        }
       }
       .flatten()
 
@@ -62,7 +61,9 @@ class SeedDatabaseCommand : Subcommand("seed", "A command to seed your database 
     }.chunked(1000)
       .mapIndexed { i, books ->
         Logger.i("Saving 1000 books to Database, iteration: $i")
-        BookRepository.createMany(books)
+        runBlocking {
+          BookRepository.createMany(books)
+        }
       }
       .flatten()
   }

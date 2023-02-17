@@ -6,7 +6,7 @@ import java.util.UUID
 
 object BookService {
 
-  fun create(request: BookModels.CreateRequest): BookModels.Response {
+  suspend fun create(request: BookModels.CreateRequest): BookModels.Response {
     val result = BookRepository.create(
       authorId = request.authorId,
       isbn = request.isbn,
@@ -16,12 +16,12 @@ object BookService {
     return BookModels.Response.fromBook(result)
   }
 
-  fun read(id: UUID): BookModels.Response {
+  suspend fun read(id: UUID): BookModels.Response {
     val result = BookRepository.read(id)
     return BookModels.Response.fromBook(result)
   }
 
-  fun update(id: UUID, request: BookModels.UpdateRequest): BookModels.Response {
+  suspend fun update(id: UUID, request: BookModels.UpdateRequest): BookModels.Response {
     val result = BookRepository.update(
       id = id,
       authorId = request.authorId,
@@ -32,7 +32,7 @@ object BookService {
     return BookModels.Response.fromBook(result)
   }
 
-  fun delete(id: UUID) {
+  suspend fun delete(id: UUID) {
     BookRepository.delete(id)
   }
 

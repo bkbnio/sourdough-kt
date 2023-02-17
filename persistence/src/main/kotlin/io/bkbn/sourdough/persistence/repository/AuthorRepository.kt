@@ -1,42 +1,73 @@
 package io.bkbn.sourdough.persistence.repository
 
 import io.bkbn.sourdough.domain.Author
+import io.bkbn.sourdough.persistence.ConnectionManager
 import io.bkbn.sourdough.persistence.entity.AuthorEntity
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.bkbn.sourdough.persistence.entity.author
+import org.komapper.core.dsl.Meta
+import org.komapper.core.dsl.QueryDsl
+import org.komapper.core.dsl.query.andThen
+import org.komapper.core.dsl.query.single
 import java.util.UUID
 
 object AuthorRepository {
+  private val db = ConnectionManager.database
+  private val resource = Meta.author
 
-  fun create(name: String): Author = transaction {
-    val entity = AuthorEntity.new {
-      this.name = name
+  suspend fun create(name: String): Author = db.withTransaction {
+    db.runQuery {
+      QueryDsl.insert(resource).single(
+        AuthorEntity(
+          name = name
+        )
+      )
     }
-    entity.toAuthor()
-  }
+  }.toAuthor()
 
-  fun createMany(names: List<String>): List<Author> = transaction {
-    names.map { name ->
-      AuthorEntity.new {
-        this.name = name
-      }.toAuthor()
+  suspend fun createMany(names: List<String>): List<Author> = db.withTransaction {
+    db.runQuery {
+      QueryDsl.insert(resource).multiple(
+        names.map {
+          AuthorEntity(
+            name = it
+          )
+        }
+      )
     }
-  }
+  }.map { it.toAuthor() }
 
-  fun read(id: UUID): Author = transaction {
-    val entity = AuthorEntity.findById(id) ?: error("No author found with id: $id")
-    entity.toAuthor()
-  }
-
-  fun update(id: UUID, name: String?): Author = transaction {
-    val entity = AuthorEntity.findById(id) ?: error("No author found with id: $id")
-    name?.let {
-      entity.name = it
+  suspend fun read(id: UUID) = db.withTransaction {
+    val result = db.runQuery {
+      val query = QueryDsl.from(resource).where { resource.id eq id }
+      query.single()
     }
-    entity.toAuthor()
+    result.toAuthor()
   }
 
-  fun delete(id: UUID) = transaction {
-    val entity = AuthorEntity.findById(id) ?: error("No author found with id: $id")
-    entity.delete()
+  suspend fun update(id: UUID, name: String?) = db.withTransaction {
+    db.runQuery {
+      QueryDsl.update(resource)
+        .set {
+          it.name to name
+        }
+        .where {
+          resource.id eq id
+        }
+        .andThen(
+          QueryDsl.from(resource)
+            .where {
+              resource.id eq id
+            }.single()
+        )
+    }
+  }.toAuthor()
+
+  suspend fun delete(id: UUID) = db.withTransaction {
+    db.runQuery {
+      QueryDsl.delete(resource)
+        .where {
+          resource.id eq id
+        }
+    }
   }
 }

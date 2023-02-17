@@ -28,9 +28,6 @@ fun main() {
   ConnectionManager.cleanMigrations() // FIXME DO NOT LEAVE THIS IN PRODUCTION SETTING!
   ConnectionManager.performMigrations()
 
-  // Activate database connection
-  ConnectionManager.activateDatabaseConnection()
-
   // Start webserver
   embeddedServer(
     CIO,
