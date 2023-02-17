@@ -1,7 +1,7 @@
 package io.bkbn.sourdough.persistence.entity
 
 import io.bkbn.sourdough.domain.Author
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Instant
 import org.komapper.annotation.KomapperCreatedAt
 import org.komapper.annotation.KomapperEntity
 import org.komapper.annotation.KomapperId
@@ -19,9 +19,9 @@ data class AuthorEntity(
   @KomapperVersion
   val version: Int = 0,
   @KomapperCreatedAt
-  val createdAt: LocalDateTime? = null,
+  val createdAt: Instant? = null,
   @KomapperUpdatedAt
-  val updatedAt: LocalDateTime? = null,
+  val updatedAt: Instant? = null,
 ) {
 fun toAuthor(): Author = Author(
     id = id,
