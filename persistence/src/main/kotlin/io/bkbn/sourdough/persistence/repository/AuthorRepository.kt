@@ -26,7 +26,7 @@ object AuthorRepository {
 
   suspend fun createMany(names: List<String>): List<Author> = db.withTransaction {
     db.runQuery {
-      QueryDsl.insert(resource).batch(
+      QueryDsl.insert(resource).multiple(
         names.map {
           AuthorEntity(
             name = it

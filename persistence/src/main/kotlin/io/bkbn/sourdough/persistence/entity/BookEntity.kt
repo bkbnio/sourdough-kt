@@ -1,7 +1,6 @@
 package io.bkbn.sourdough.persistence.entity
 
 import io.bkbn.sourdough.domain.Book
-import io.bkbn.sourdough.persistence.repository.AuthorRepository
 import kotlinx.datetime.Instant
 import org.komapper.annotation.KomapperCreatedAt
 import org.komapper.annotation.KomapperEntity
@@ -29,7 +28,7 @@ data class BookEntity(
 ) {
   suspend fun toBook(): Book = Book(
     id = id,
-    author = AuthorRepository.read(authorId),
+    authorId = authorId,
     isbn = isbn,
     title = title,
     price = price,

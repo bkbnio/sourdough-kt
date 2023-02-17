@@ -29,7 +29,8 @@ object BookModels {
   data class Response(
     @Serializable(with = UuidSerializer::class)
     val id: UUID,
-    val author: AuthorModels.Response,
+    @Serializable(with = UuidSerializer::class)
+    val author: UUID,
     val isbn: String,
     val title: String,
     val price: Float
@@ -37,7 +38,7 @@ object BookModels {
     companion object {
       fun fromBook(b: Book): Response = Response(
         b.id,
-        AuthorModels.Response.fromAuthor(b.author),
+        b.authorId,
         b.isbn,
         b.title,
         b.price

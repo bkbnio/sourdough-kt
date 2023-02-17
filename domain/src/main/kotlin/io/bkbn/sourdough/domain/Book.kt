@@ -4,7 +4,7 @@ import java.util.UUID
 
 data class Book(
   val id: UUID,
-  val author: Author,
+  val authorId: UUID,
   val isbn: String,
   val title: String,
   val price: Float

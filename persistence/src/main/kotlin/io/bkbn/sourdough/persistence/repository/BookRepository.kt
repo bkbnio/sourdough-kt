@@ -42,7 +42,7 @@ object BookRepository {
 
   suspend fun createMany(requests: List<BookCreate>) = db.withTransaction {
     db.runQuery {
-      QueryDsl.insert(resource).batch(
+      QueryDsl.insert(resource).multiple(
         requests.map {
           BookEntity(
             authorId = it.authorId,
