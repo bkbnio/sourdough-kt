@@ -13,6 +13,7 @@ object ConnectionManager {
 
   private val flyway: Flyway by lazy {
     Flyway.configure().apply {
+      cleanDisabled(false)
       dataSource(PostgresConfig.CONNECTION_URI, PostgresConfig.USER, PostgresConfig.PASSWORD)
     }.load() ?: error("Problem Loading Flyway!! Please verify Database Connection / Migration Info")
   }
