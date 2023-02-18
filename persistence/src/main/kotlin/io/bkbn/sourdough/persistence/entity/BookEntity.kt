@@ -26,7 +26,7 @@ data class BookEntity(
   @KomapperUpdatedAt
   val updatedAt: Instant? = null,
 ) {
-  suspend fun toBook(): Book = Book(
+  fun toBook(): Book = Book(
     id = id,
     authorId = authorId,
     isbn = isbn,

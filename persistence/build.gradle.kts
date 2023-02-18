@@ -26,14 +26,14 @@ dependencies {
   // Driver
   implementation("org.postgresql:postgresql:42.5.1")
 
-  implementation("org.postgresql:r2dbc-postgresql:1.0.0.RELEASE")
+  // ORM
   platform("org.komapper:komapper-platform:$komapperVersion").let {
     implementation(it)
     ksp(it)
   }
-  implementation("org.komapper:komapper-starter-r2dbc")
-  implementation("org.komapper:komapper-dialect-postgresql-r2dbc")
-  implementation("org.komapper:komapper-datetime-r2dbc:$komapperVersion")
+  implementation("org.komapper:komapper-starter-jdbc")
+  implementation("org.komapper:komapper-dialect-postgresql-jdbc")
+  implementation("org.komapper:komapper-datetime-jdbc:$komapperVersion")
   ksp("org.komapper:komapper-processor")
 }
 

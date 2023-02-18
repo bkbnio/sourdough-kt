@@ -7,27 +7,27 @@ import java.util.UUID
 
 object AuthorService {
 
-  suspend fun create(request: AuthorModels.CreateRequest): AuthorModels.Response {
+  fun create(request: AuthorModels.CreateRequest): AuthorModels.Response {
     val result = AuthorRepository.create(request.name)
     return AuthorModels.Response.fromAuthor(result)
   }
 
-  suspend fun read(id: UUID): AuthorModels.Response {
+  fun read(id: UUID): AuthorModels.Response {
     val result = AuthorRepository.read(id)
     return AuthorModels.Response.fromAuthor(result)
   }
 
-  suspend fun readBooks(authorId: UUID): List<BookModels.Response> {
+  fun readBooks(authorId: UUID): List<BookModels.Response> {
     val result = AuthorRepository.readBooks(authorId)
     return result.map { BookModels.Response.fromBook(it) }
   }
 
-  suspend fun update(id: UUID, request: AuthorModels.UpdateRequest): AuthorModels.Response {
+  fun update(id: UUID, request: AuthorModels.UpdateRequest): AuthorModels.Response {
     val result = AuthorRepository.update(id, request.name)
     return AuthorModels.Response.fromAuthor(result)
   }
 
-  suspend fun delete(id: UUID) {
+  fun delete(id: UUID) {
     AuthorRepository.delete(id)
   }
 
