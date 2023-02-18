@@ -22,7 +22,7 @@ object BookRepository {
     val price: Float,
   )
 
-  suspend fun create(
+  fun create(
     authorId: UUID,
     isbn: String,
     title: String,
@@ -40,7 +40,7 @@ object BookRepository {
     }
   }.toBook()
 
-  suspend fun createMany(requests: List<BookCreate>) = db.withTransaction {
+  fun createMany(requests: List<BookCreate>) = db.withTransaction {
     db.runQuery {
       QueryDsl.insert(resource).multiple(
         requests.map {
@@ -55,7 +55,7 @@ object BookRepository {
     }
   }.map { it.toBook() }
 
-  suspend fun read(id: UUID) = db.withTransaction {
+  fun read(id: UUID) = db.withTransaction {
     val result = db.runQuery {
       val query = QueryDsl.from(resource).where { resource.id eq id }
       query.single()
@@ -63,7 +63,7 @@ object BookRepository {
     result.toBook()
   }
 
-  suspend fun update(id: UUID, authorId: UUID?, isbn: String?, title: String?, price: Float?) = db.withTransaction {
+  fun update(id: UUID, authorId: UUID?, isbn: String?, title: String?, price: Float?) = db.withTransaction {
     db.runQuery {
       QueryDsl.update(resource)
         .set {entity ->
@@ -85,7 +85,7 @@ object BookRepository {
     }
   }.toBook()
 
-  suspend fun delete(id: UUID) = db.withTransaction {
+  fun delete(id: UUID) = db.withTransaction {
     db.runQuery {
       QueryDsl.delete(resource)
         .where {

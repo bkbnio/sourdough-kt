@@ -9,7 +9,7 @@ plugins {
 
 dependencies {
   // Versions
-  val komapperVersion = "1.6.0"
+  val komapperVersion: String by project
 
   // Sourdough
   implementation(projects.domain)
@@ -26,14 +26,14 @@ dependencies {
   // Driver
   implementation("org.postgresql:postgresql:42.5.1")
 
-  implementation("org.postgresql:r2dbc-postgresql:1.0.0.RELEASE")
+  // ORM
   platform("org.komapper:komapper-platform:$komapperVersion").let {
     implementation(it)
     ksp(it)
   }
-  implementation("org.komapper:komapper-starter-r2dbc")
-  implementation("org.komapper:komapper-dialect-postgresql-r2dbc")
-  implementation("org.komapper:komapper-datetime-r2dbc:$komapperVersion")
+  implementation("org.komapper:komapper-starter-jdbc")
+  implementation("org.komapper:komapper-dialect-postgresql-jdbc")
+  implementation("org.komapper:komapper-datetime-jdbc:$komapperVersion")
   ksp("org.komapper:komapper-processor")
 }
 
@@ -43,6 +43,11 @@ kotlin {
   }
 }
 
+tasks {
+  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += listOf("-opt-in=org.komapper.annotation.KomapperExperimentalAssociation")
+  }
+}
 
 testing {
   suites {

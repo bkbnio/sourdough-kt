@@ -32,7 +32,7 @@ fun main() {
   embeddedServer(
     CIO,
     port = 8080,
-    module = Application::mainModule
+    module = Application::mainModule,
   ).start(wait = true)
 }
 

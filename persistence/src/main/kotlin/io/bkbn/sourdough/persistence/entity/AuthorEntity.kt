@@ -23,7 +23,7 @@ data class AuthorEntity(
   @KomapperUpdatedAt
   val updatedAt: Instant? = null,
 ) {
-fun toAuthor(): Author = Author(
+  fun toAuthor(): Author = Author(
     id = id,
     name = name,
   )

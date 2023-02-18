@@ -1,7 +1,7 @@
 package io.bkbn.sourdough.persistence
 
 import org.flywaydb.core.Flyway
-import org.komapper.r2dbc.R2dbcDatabase
+import org.komapper.jdbc.JdbcDatabase
 
 object ConnectionManager {
 
@@ -20,8 +20,8 @@ object ConnectionManager {
     }.load() ?: error("Problem Loading Flyway!! Please verify Database Connection / Migration Info")
   }
 
-  val database: R2dbcDatabase by lazy {
-    R2dbcDatabase("r2dbc:postgresql://test_user:test_password@localhost:5432/test_db")
-  }
+  val database: JdbcDatabase by lazy {
 
+    JdbcDatabase(PostgresConfig.CONNECTION_URI, PostgresConfig.USER, PostgresConfig.PASSWORD)
+  }
 }
