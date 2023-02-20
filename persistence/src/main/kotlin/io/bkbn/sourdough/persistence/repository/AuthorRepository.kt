@@ -17,7 +17,7 @@ object AuthorRepository {
 
   private val db = ConnectionManager.database
 
-  fun create(name: String): Author = db.withTransaction {
+  suspend fun create(name: String): Author = db.withTransaction {
     db.runQuery {
       QueryDsl.insert(AUTHOR).single(
         AuthorEntity(
@@ -27,7 +27,7 @@ object AuthorRepository {
     }
   }.toAuthor()
 
-  fun createMany(names: List<String>): List<Author> = db.withTransaction {
+  suspend fun createMany(names: List<String>): List<Author> = db.withTransaction {
     db.runQuery {
       QueryDsl.insert(AUTHOR).multiple(
         names.map {
@@ -39,7 +39,7 @@ object AuthorRepository {
     }
   }.map { it.toAuthor() }
 
-  fun read(id: UUID) = db.withTransaction {
+  suspend fun read(id: UUID) = db.withTransaction {
     val result = db.runQuery {
       val query = QueryDsl.from(AUTHOR).where { AUTHOR.id eq id }
       query.single()
@@ -47,7 +47,7 @@ object AuthorRepository {
     result.toAuthor()
   }
 
-  fun readBooks(authorId: UUID) = db.withTransaction {
+  suspend fun readBooks(authorId: UUID) = db.withTransaction {
     val query = QueryDsl.from(AUTHOR)
       .innerJoin(BOOK) {
         BOOK.authorId eq AUTHOR.id
@@ -61,7 +61,7 @@ object AuthorRepository {
     store[BOOK].toList()
   }.map { it.toBook() }
 
-  fun update(id: UUID, name: String?) = db.withTransaction {
+  suspend fun update(id: UUID, name: String?) = db.withTransaction {
     db.runQuery {
       QueryDsl.update(AUTHOR)
         .set {
@@ -79,7 +79,7 @@ object AuthorRepository {
     }
   }.toAuthor()
 
-  fun delete(id: UUID) = db.withTransaction {
+  suspend fun delete(id: UUID) = db.withTransaction {
     db.runQuery {
       QueryDsl.delete(AUTHOR)
         .where {
