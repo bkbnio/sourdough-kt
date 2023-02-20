@@ -17,23 +17,23 @@ dependencies {
   // Flyway
   implementation( "org.flywaydb:flyway-core:9.8.3")
 
-  // Hikari
-  implementation("com.zaxxer:HikariCP:5.0.1")
-
   // Datetime
   implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
   // Driver
   implementation("org.postgresql:postgresql:42.5.1")
 
+  // Pooling
+  implementation("io.r2dbc:r2dbc-pool:1.0.0.RELEASE")
+
   // ORM
   platform("org.komapper:komapper-platform:$komapperVersion").let {
     implementation(it)
     ksp(it)
   }
-  implementation("org.komapper:komapper-starter-jdbc")
-  implementation("org.komapper:komapper-dialect-postgresql-jdbc")
-  implementation("org.komapper:komapper-datetime-jdbc:$komapperVersion")
+  implementation("org.komapper:komapper-starter-r2dbc")
+  implementation("org.komapper:komapper-dialect-postgresql-r2dbc")
+  implementation("org.komapper:komapper-datetime-r2dbc:$komapperVersion")
   ksp("org.komapper:komapper-processor")
 }
 

@@ -1,10 +1,11 @@
 package io.bkbn.sourdough.persistence
 
-import com.zaxxer.hikari.HikariConfig
-import com.zaxxer.hikari.HikariDataSource
+import io.r2dbc.spi.ConnectionFactories
+import io.r2dbc.spi.ConnectionFactory
+import io.r2dbc.spi.ConnectionFactoryOptions
 import org.flywaydb.core.Flyway
-import org.komapper.dialect.postgresql.jdbc.PostgreSqlJdbcDialect
-import org.komapper.jdbc.JdbcDatabase
+import org.komapper.dialect.postgresql.r2dbc.PostgreSqlR2dbcDialect
+import org.komapper.r2dbc.R2dbcDatabase
 
 object ConnectionManager {
 
@@ -23,17 +24,18 @@ object ConnectionManager {
     }.load() ?: error("Problem Loading Flyway!! Please verify Database Connection / Migration Info")
   }
 
-  val database: JdbcDatabase by lazy {
-    val dataSource = HikariDataSource(HikariConfig().apply {
-      jdbcUrl = PostgresConfig.CONNECTION_URI
-      username = PostgresConfig.USER
-      password = PostgresConfig.PASSWORD
-      maximumPoolSize = PostgresConfig.DEFAULT_MAX_POOL_SIZE
-      initializationFailTimeout = PostgresConfig.DEFAULT_INIT_FAIL_TIMEOUT
-      isAutoCommit = false
-      transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-      validate()
-    })
-    JdbcDatabase(dataSource = dataSource, dialect = PostgreSqlJdbcDialect())
+  val database: R2dbcDatabase by lazy {
+    val pooledConnectionFactory: ConnectionFactory = ConnectionFactories.get(
+      ConnectionFactoryOptions.builder()
+        .option(ConnectionFactoryOptions.DRIVER, "pool")
+        .option(ConnectionFactoryOptions.PROTOCOL, "postgresql")
+        .option(ConnectionFactoryOptions.HOST, "localhost")
+        .option(ConnectionFactoryOptions.PORT, 5432)
+        .option(ConnectionFactoryOptions.USER, "test_user")
+        .option(ConnectionFactoryOptions.PASSWORD, "test_password")
+        .option(ConnectionFactoryOptions.DATABASE, "test_db")
+        .build()
+    )
+    R2dbcDatabase(connectionFactory = pooledConnectionFactory, dialect = PostgreSqlR2dbcDialect())
   }
 }
