@@ -1,6 +1,9 @@
 package io.bkbn.sourdough.persistence
 
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
+import org.komapper.dialect.postgresql.jdbc.PostgreSqlJdbcDialect
 import org.komapper.jdbc.JdbcDatabase
 
 object ConnectionManager {
@@ -21,7 +24,16 @@ object ConnectionManager {
   }
 
   val database: JdbcDatabase by lazy {
-
-    JdbcDatabase(PostgresConfig.CONNECTION_URI, PostgresConfig.USER, PostgresConfig.PASSWORD)
+    val dataSource = HikariDataSource(HikariConfig().apply {
+      jdbcUrl = PostgresConfig.CONNECTION_URI
+      username = PostgresConfig.USER
+      password = PostgresConfig.PASSWORD
+      maximumPoolSize = PostgresConfig.DEFAULT_MAX_POOL_SIZE
+      initializationFailTimeout = PostgresConfig.DEFAULT_INIT_FAIL_TIMEOUT
+      isAutoCommit = false
+      transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+      validate()
+    })
+    JdbcDatabase(dataSource = dataSource, dialect = PostgreSqlJdbcDialect())
   }
 }
