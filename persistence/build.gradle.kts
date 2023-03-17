@@ -21,7 +21,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
   // Driver
-  implementation("org.postgresql:postgresql:42.5.1")
+  implementation("org.postgresql:postgresql:42.6.0")
 
   // Pooling
   implementation("io.r2dbc:r2dbc-pool:1.0.0.RELEASE")
