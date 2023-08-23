@@ -7,7 +7,7 @@ plugins {
   // Child Plugins
   kotlin("jvm") version "1.8.0" apply false
   id("com.google.devtools.ksp") version "1.8.0-1.0.8" apply false
-  kotlin("plugin.serialization") version "1.8.0" apply false
+  kotlin("plugin.serialization") version "1.9.10" apply false
   id("io.bkbn.sourdough.library.jvm") version "0.12.0" apply false
   id("io.bkbn.sourdough.application.jvm") version "0.12.0" apply false
   id("io.gitlab.arturbosch.detekt") version "1.22.0" apply false
