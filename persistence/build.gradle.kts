@@ -15,7 +15,7 @@ dependencies {
   implementation(projects.domain)
 
   // Flyway
-  implementation( "org.flywaydb:flyway-core:9.8.3")
+  implementation( "org.flywaydb:flyway-core:9.22.1")
 
   // Datetime
   implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
