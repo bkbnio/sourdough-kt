@@ -1,5 +1,3 @@
-import kotlinx.kover.api.DefaultJacocoEngine
-
 plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
@@ -29,13 +27,9 @@ testing {
       useJUnitJupiter()
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.5.4")
+        implementation(testLibs.kotest.runner.junit5.jvm)
+        implementation(testLibs.kotest.assertions.core.jvm)
       }
     }
   }
-}
-
-kover {
-  engine.set(DefaultJacocoEngine)
 }

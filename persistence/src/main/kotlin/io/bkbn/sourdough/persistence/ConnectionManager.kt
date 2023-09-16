@@ -9,6 +9,8 @@ import org.komapper.r2dbc.R2dbcDatabase
 
 object ConnectionManager {
 
+  private const val DEFAULT_PORT = 5432
+
   fun cleanMigrations() {
     flyway.clean()
   }
@@ -30,7 +32,7 @@ object ConnectionManager {
         .option(ConnectionFactoryOptions.DRIVER, "pool")
         .option(ConnectionFactoryOptions.PROTOCOL, "postgresql")
         .option(ConnectionFactoryOptions.HOST, "localhost")
-        .option(ConnectionFactoryOptions.PORT, 5432)
+        .option(ConnectionFactoryOptions.PORT, DEFAULT_PORT)
         .option(ConnectionFactoryOptions.USER, "test_user")
         .option(ConnectionFactoryOptions.PASSWORD, "test_password")
         .option(ConnectionFactoryOptions.DATABASE, "test_db")

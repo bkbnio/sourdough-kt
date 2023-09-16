@@ -17,16 +17,14 @@ dependencies {
   implementation(projects.domain)
 
   // Coroutines
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+  implementation(libs.ktx.coroutines.core)
 
   // CLI
-  implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.5")
+  implementation(libs.ktx.cli)
 
   // Data generation
-  implementation("io.github.unredundant:satisfaketion-core:0.6.4")
-  implementation("io.github.unredundant:satisfaketion-generators:0.6.4")
-  implementation("io.github.unredundant:satisfaketion-mutators:0.6.4")
+  implementation(libs.bundles.satisfaketion)
 
   // Logging
-  implementation("co.touchlab:kermit:1.2.2")
+  implementation(libs.kermit)
 }

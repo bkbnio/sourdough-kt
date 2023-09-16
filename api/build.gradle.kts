@@ -17,58 +17,42 @@ dependencies {
   implementation(projects.persistence)
 
   // Logging
-  implementation("ch.qos.logback:logback-classic:1.4.5")
+  implementation(libs.logback.classic)
 
   // Serialization
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+  implementation(libs.ktx.serialization)
 
-  // Server
-  val ktorVersion: String by project
-
-  implementation("io.ktor:ktor-server-core:$ktorVersion")
-  implementation("io.ktor:ktor-server-cio:$ktorVersion")
-  implementation("io.ktor:ktor-server-auth:$ktorVersion")
-  implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
-  implementation("io.ktor:ktor-serialization:$ktorVersion")
-  implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
-  implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
-  implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
-  // OpenApi Generation
-  implementation("io.bkbn:kompendium-core:3.9.0")
+  // Ktor Server
+  implementation(libs.bundles.ktor.server)
 
   // Datetime
-  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+  implementation(libs.ktx.datetime)
 }
 
 testing {
-
-  // Server
-  val ktorVersion: String by project
-
   suites {
     named<JvmTestSuite>("test") {
       useJUnitJupiter()
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.5.4")
-        implementation("io.kotest:kotest-assertions-ktor:4.4.3")
+        implementation(testLibs.kotest.runner.junit5.jvm)
+        implementation(testLibs.kotest.assertions.core.jvm)
+        implementation(testLibs.kotest.assertions.ktor)
 
         // Ktor
-        implementation("io.ktor:ktor-client-mock:$ktorVersion")
+        implementation(testLibs.ktor.client.mock)
       }
     }
     create<JvmTestSuite>("testIntegration") {
       useJUnitJupiter()
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.5.4")
-        implementation("io.kotest:kotest-assertions-ktor:4.4.3")
+        implementation(testLibs.kotest.runner.junit5.jvm)
+        implementation(testLibs.kotest.assertions.core.jvm)
+        implementation(testLibs.kotest.assertions.ktor)
 
         // Ktor
-        implementation("io.ktor:ktor-client-mock:$ktorVersion")
+        implementation(testLibs.ktor.client.mock)
       }
     }
   }

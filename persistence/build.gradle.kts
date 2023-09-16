@@ -8,33 +8,28 @@ plugins {
 }
 
 dependencies {
-  // Versions
-  val komapperVersion: String by project
-
   // Sourdough
   implementation(projects.domain)
 
   // Flyway
-  implementation( "org.flywaydb:flyway-core:9.8.3")
+  implementation(libs.flyway.core)
 
   // Datetime
-  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+  implementation(libs.ktx.datetime)
 
   // Driver
-  implementation("org.postgresql:postgresql:42.5.1")
+  implementation(libs.postgres.driver)
 
   // Pooling
-  implementation("io.r2dbc:r2dbc-pool:1.0.0.RELEASE")
+  implementation(libs.r2dbc.pool)
 
   // ORM
-  platform("org.komapper:komapper-platform:$komapperVersion").let {
+  platform(libs.komapper.platform).let {
     implementation(it)
     ksp(it)
   }
-  implementation("org.komapper:komapper-starter-r2dbc")
-  implementation("org.komapper:komapper-dialect-postgresql-r2dbc")
-  implementation("org.komapper:komapper-datetime-r2dbc:$komapperVersion")
-  ksp("org.komapper:komapper-processor")
+  implementation(libs.bundles.komapper.r2dbc)
+  ksp(libs.komapper.processor)
 }
 
 kotlin {
@@ -55,8 +50,8 @@ testing {
       useJUnitJupiter()
       dependencies {
         // Kotest
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-        implementation("io.kotest:kotest-assertions-core-jvm:5.5.4")
+        implementation(testLibs.kotest.runner.junit5.jvm)
+        implementation(testLibs.kotest.assertions.core.jvm)
       }
     }
   }
