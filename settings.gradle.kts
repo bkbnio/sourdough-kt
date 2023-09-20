@@ -105,6 +105,7 @@ dependencyResolutionManagement {
 
       // Ktor Server
       library("ktor-server-core", "io.ktor", "ktor-server-core").version(ktorVersion)
+      library("ktor-server-call-logging", "io.ktor", "ktor-server-call-logging").version(ktorVersion)
       library("ktor-server-cio", "io.ktor", "ktor-server-cio").version(ktorVersion)
       library("ktor-server-auth", "io.ktor", "ktor-server-auth").version(ktorVersion)
       library("ktor-server-auth-jwt", "io.ktor", "ktor-server-auth-jwt").version(ktorVersion)
@@ -116,6 +117,7 @@ dependencyResolutionManagement {
         "ktor-server",
         listOf(
           "ktor-server-core",
+          "ktor-server-call-logging",
           "ktor-server-cio",
           "ktor-server-auth",
           "ktor-server-auth-jwt",

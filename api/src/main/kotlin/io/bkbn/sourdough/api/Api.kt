@@ -16,16 +16,18 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.plugins.callloging.CallLogging
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.routing.routing
 import kotlin.reflect.typeOf
 import kotlinx.datetime.Instant
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import org.slf4j.event.Level
 
 fun main() {
   // Perform Database Migrations
-  ConnectionManager.cleanMigrations() // FIXME DO NOT LEAVE THIS IN PRODUCTION SETTING!
+  // ConnectionManager.cleanMigrations() // Only uncomment if you want to drop all tables
   ConnectionManager.performMigrations()
 
   // Start webserver
@@ -37,6 +39,9 @@ fun main() {
 }
 
 private fun Application.mainModule() {
+  install(CallLogging) {
+    level = Level.DEBUG
+  }
   install(ContentNegotiation) {
     json(Json {
       serializersModule = KompendiumSerializersModule.module
