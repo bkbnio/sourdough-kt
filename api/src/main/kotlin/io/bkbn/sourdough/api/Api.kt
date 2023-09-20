@@ -9,7 +9,7 @@ import io.bkbn.kompendium.oas.serialization.KompendiumSerializersModule
 import io.bkbn.sourdough.api.controller.AuthorController.authorHandler
 import io.bkbn.sourdough.api.controller.BookController.bookHandler
 import io.bkbn.sourdough.api.controller.HealthCheckController.healthCheckHandler
-import io.bkbn.sourdough.api.documentation.ApplicationSpec
+import io.bkbn.sourdough.api.documentation.DocumentationUtils
 import io.bkbn.sourdough.persistence.ConnectionManager
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
@@ -51,7 +51,7 @@ private fun Application.mainModule() {
     })
   }
   install(NotarizedApplication()) {
-    spec = { ApplicationSpec() }
+    spec = DocumentationUtils::applicationSpec
     customTypes = mapOf(
       typeOf<Instant>() to TypeDefinition("string", "date-time")
     )
